@@ -16,7 +16,7 @@
     </Window.Style>
     <Grid>
         <StackPanel>
-            <GroupBox  Padding="5" Header="Данные приёма" Margin="10" adonisExtensions:CornerRadiusExtension.CornerRadius="4" >
+            <GroupBox  Padding="5" Header="Данные приёма" Margin="10"  >
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Margin="5" Orientation="Vertical" Height="100" Width="140">
                         <TextBlock Margin="8" FontSize="12">Время приёма</TextBlock>
@@ -25,15 +25,15 @@
                     </StackPanel>
                     <StackPanel Margin="5"  Orientation="Vertical" Height="100" Width="165">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <TextBox Text="{Binding Hours,UpdateSourceTrigger=PropertyChanged}" Margin="5" adonisExtensions:CornerRadiusExtension.CornerRadius="4" HorizontalAlignment="Right"
+                            <TextBox Text="{Binding Hours,UpdateSourceTrigger=PropertyChanged}" Margin="5"  HorizontalAlignment="Right"
                             adonisExtensions:WatermarkExtension.Watermark="00" Width="40" MaxLength="3" />
                             <TextBlock FontSize="20">:</TextBlock>
-                            <TextBox Text="{Binding Minutes,UpdateSourceTrigger=PropertyChanged}" Margin="5" adonisExtensions:CornerRadiusExtension.CornerRadius="4" HorizontalAlignment="Right"
+                            <TextBox Text="{Binding Minutes,UpdateSourceTrigger=PropertyChanged}" Margin="5"  HorizontalAlignment="Right"
                             adonisExtensions:WatermarkExtension.Watermark="00" Width="40" MaxLength="3"/>
                         </StackPanel>
-                        <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Date,UpdateSourceTrigger=PropertyChanged}"  Margin="5" Height="24" Width="130" adonisExtensions:CornerRadiusExtension.CornerRadius="4" HorizontalAlignment="Right"/>
+                        <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Date,UpdateSourceTrigger=PropertyChanged}"  Margin="5" Height="24" Width="130"  HorizontalAlignment="Right"/>
                         <ComboBox ItemsSource="{Binding Doctors}" Margin="5" Height="24" Width="155"
-                                  adonisExtensions:CornerRadiusExtension.CornerRadius="4" HorizontalAlignment="Right"
+                                   HorizontalAlignment="Right"
                                   SelectedValue="{Binding SelectedDoctor,UpdateSourceTrigger=PropertyChanged}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -48,7 +48,7 @@
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
-            <Button Height="30" Width="80" adonisExtensions:CornerRadiusExtension.CornerRadius="4"
+            <Button Height="30" Width="80" 
                     Command="{Binding AddVisitCommand}" CommandParameter="{Binding Visit}">Добавить</Button>
         </StackPanel>
     </Grid>

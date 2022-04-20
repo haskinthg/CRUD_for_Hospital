@@ -17,9 +17,8 @@
     <Grid>
         <ScrollViewer>
           <StackPanel>
-            <GroupBox Header="Приёмы пациента" Margin="5" adonisExtensions:CornerRadiusExtension.CornerRadius="4">
+            <GroupBox Header="Приёмы пациента" Margin="5" >
                     <DataGrid FontSize="12" ItemsSource="{Binding Visits}"
-                          adonisExtensions:CornerRadiusExtension.CornerRadius="4"
                           IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="*">
                         <DataGrid.Columns >
                             <DataGridTextColumn Header="Дата" Binding="{Binding VDate}"/>

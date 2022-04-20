@@ -17,8 +17,8 @@
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <GroupBox Header="Выберите больницу" Margin="20" adonisExtensions:CornerRadiusExtension.CornerRadius="4" Width="310">
-                    <ComboBox adonisExtensions:CornerRadiusExtension.CornerRadius="4" SelectedValue="{Binding SelectedHospital,UpdateSourceTrigger=PropertyChanged}"
+                <GroupBox Header="Выберите больницу" Margin="20"  Width="310">
+                    <ComboBox  SelectedValue="{Binding SelectedHospital,UpdateSourceTrigger=PropertyChanged}"
                           ItemsSource="{Binding Hospitals}" DisplayMemberPath="HName" >
                         <d:Interaction.Triggers>
                             <d:EventTrigger EventName="SelectionChanged">
@@ -28,15 +28,14 @@
                         </d:Interaction.Triggers>
                     </ComboBox>
                 </GroupBox>
-                <Button Height="40" Width="80" adonisExtensions:CornerRadiusExtension.CornerRadius="4"
+                <Button Height="40" Width="80" 
                         Background="{DynamicResource {x:Static adonisUi:Brushes.AccentHighlightBrush}}">
                     Добавить
                 </Button>
             </StackPanel>
-            <GroupBox Header="Информация о выбранной больнице" Margin="20,0" adonisExtensions:CornerRadiusExtension.CornerRadius="4"
+            <GroupBox Header="Информация о выбранной больнице" Margin="20,0" 
                       >
                 <DataGrid FontSize="12" ItemsSource="{Binding sHospital}"
-                          adonisExtensions:CornerRadiusExtension.CornerRadius="4"
                           IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="*">
                     <DataGrid.Columns >
                         <DataGridTextColumn Header="Название" Binding="{Binding Path=HName}"/>
@@ -45,7 +44,7 @@
                     </DataGrid.Columns >
                 </DataGrid>
             </GroupBox>
-            <Button Width="90" Height="30" adonisExtensions:CornerRadiusExtension.CornerRadius="4" Margin="10"
+            <Button Width="90" Height="30"  Margin="10"
                     Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
                     Command="{Binding OpenMainWindowCommand}" CommandParameter="{Binding SelectedHospital}">
                 Открыть
