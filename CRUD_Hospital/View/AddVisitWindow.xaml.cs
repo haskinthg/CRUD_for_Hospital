@@ -1,5 +1,6 @@
 ﻿using AdonisUI.Controls;
 using CRUD_Hospital.ViewModel;
+using System;
 
 namespace CRUD_Hospital.View
 {
@@ -11,7 +12,10 @@ namespace CRUD_Hospital.View
         public AddVisitWindow()
         {
             InitializeComponent();
-            DataContext = new AddVisitWindowVM();
+            AddVisitWindowVM vm = new AddVisitWindowVM();
+            DataContext = vm;
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(this.Close);
         }
     }
 }

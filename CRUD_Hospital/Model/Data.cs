@@ -11,7 +11,9 @@ namespace CRUD_Hospital.Model
     internal static class Data
     {
         public static int HospitalId { get; set; }
-        public static Visit AddVisit { get; set; }
+        public static int DepartmentId { get; set; }
+        public static int PatientId { get; set; }
+        public static int DoctorId { get; set; }
 
         public static ObservableCollection<Patient> GetAllPatients()
         {
@@ -33,13 +35,22 @@ namespace CRUD_Hospital.Model
             return all;
         }
 
-        public static ObservableCollection<Doctor> GetAllDoctors(int id)
+        public static ObservableCollection<Doctor> GetDoctors(int id)
         {
             var all = new ObservableCollection<Doctor>();
             using (var db = new dbhospitalsContext())
             {
                 Npgsql.NpgsqlParameter DepartmentId = new Npgsql.NpgsqlParameter("@DepartmentId",id);
                 all = new ObservableCollection<Doctor>(db.Doctors.FromSqlRaw("SELECT * FROM DOCTORS WHERE Department_Id = @DepartmentId",DepartmentId));
+            }
+            return all;
+        }
+        public static ObservableCollection<Doctor> GetAllDoctors()
+        {
+            var all = new ObservableCollection<Doctor>();
+            using (var db = new dbhospitalsContext())
+            {
+                all = new ObservableCollection<Doctor>(db.Doctors);
             }
             return all;
         }
@@ -50,6 +61,17 @@ namespace CRUD_Hospital.Model
             using(var db = new dbhospitalsContext())
             {
                 all = new ObservableCollection<Hospital>(db.Hospitals);
+            }
+            return all;
+        }
+
+        public static ObservableCollection<Visit> GetVisitsOfPatient(int id)
+        {
+            var all = new ObservableCollection<Visit>();
+            using(var db = new dbhospitalsContext())
+            {
+                Npgsql.NpgsqlParameter PatientId = new Npgsql.NpgsqlParameter("@PatientId", id);
+                all = new ObservableCollection<Visit>(db.Visits.FromSqlRaw("SELECT * FROM VISITS WHERE PATIENT_ID = @PatientId",PatientId));
             }
             return all;
         }

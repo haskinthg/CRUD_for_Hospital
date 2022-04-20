@@ -1,0 +1,28 @@
+﻿<adonisControls:AdonisWindow x:Class="CRUD_Hospital.View.ShowVisitsPatient"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+        xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+        xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+        xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
+        xmlns:d="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        Title="Просмотр приёмов" Height="240" Width="350"  IconVisibility="Collapsed" ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewmodel:ShowVisitsPatientVM/>
+    </Window.DataContext>
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
+    </Window.Style>
+    <Grid>
+        <ScrollViewer>
+            <StackPanel>
+            <GroupBox Header="Приёмы пациента" Margin="5" adonisExtensions:CornerRadiusExtension.CornerRadius="4">
+                    <DataGrid>
+                        
+                    </DataGrid>
+            </GroupBox>
+        </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</adonisControls:AdonisWindow>

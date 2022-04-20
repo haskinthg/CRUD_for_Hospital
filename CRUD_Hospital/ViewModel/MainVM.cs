@@ -32,7 +32,7 @@ namespace CRUD_Hospital.ViewModel
         public void UpdateDoctors()
         {
             Doctors.Clear();
-            foreach (var item in Data.GetAllDoctors(_selectedDepartment.DepartmentId))
+            foreach (var item in Data.GetDoctors(_selectedDepartment.DepartmentId))
                 Doctors.Add(item);
         }
 
@@ -85,6 +85,7 @@ namespace CRUD_Hospital.ViewModel
             }
         }
 
+
         private RelayCommand addPatientCommand;
         public RelayCommand AddPatientCommand => addPatientCommand ??
                     (addPatientCommand = new RelayCommand(obj =>
@@ -114,10 +115,13 @@ namespace CRUD_Hospital.ViewModel
                 obj => SelectedDepartment != null
             ));
 
-        private RelayCommand addVisitCommand;
-        public RelayCommand AddVisitCommand => addVisitCommand ??
-            (addVisitCommand = new RelayCommand(obj =>
+        private RelayCommand addVisitWindowCommand;
+        public RelayCommand AddVisitWndowCommand => addVisitWindowCommand ??
+            (addVisitWindowCommand = new RelayCommand(obj =>
             {
+                Data.PatientId = _selectedPatient.PatientId;
+                var window = new View.AddVisitWindow();
+                window.Show();
 
             }));
     }
