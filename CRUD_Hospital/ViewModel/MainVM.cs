@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CRUD_Hospital.Command;
+using CRUD_Hospital.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using CRUD_Hospital.Model;
-using CRUD_Hospital.Command;
 
 
 namespace CRUD_Hospital.ViewModel
@@ -18,9 +13,6 @@ namespace CRUD_Hospital.ViewModel
         public ObservableCollection<Patient> Patients { get; set; } = Data.GetAllPatients();
         public ObservableCollection<Doctor> Doctors { get; set; } = new ObservableCollection<Doctor>();
         public ObservableCollection<Department> Departments { get; } = Data.GetAllDepartments();
-
-        private int HospitalId { get; set; } = Data.HospitalId;
-
 
         public void UpdatePatients()
         {
@@ -73,7 +65,8 @@ namespace CRUD_Hospital.ViewModel
         }
 
         private Patient AddPatient = new Patient { HospitalId = 1 };
-        public Patient addPatient {
+        public Patient addPatient
+        {
             get
             {
                 return AddPatient;
@@ -112,7 +105,7 @@ namespace CRUD_Hospital.ViewModel
                         Data.DeleteFromPatients(sPatient);
                         UpdatePatients();
                     },
-                    (obj) => SelectedPatient!=null));
+                    (obj) => SelectedPatient != null));
 
         private RelayCommand selectedCommand;
         public RelayCommand SelectedCommand => selectedCommand ??
