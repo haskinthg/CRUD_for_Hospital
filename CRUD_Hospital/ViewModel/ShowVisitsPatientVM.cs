@@ -1,19 +1,21 @@
-﻿using CRUD_Hospital.Command;
-using CRUD_Hospital.Model;
-using System;
-using System.Collections.Generic;
+﻿using CRUD_Hospital.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace CRUD_Hospital.ViewModel
 {
     internal class ShowVisitsPatientVM:INotifyPropertyChanged
     {
-
+        public ObservableCollection<Visit> Visits { get; set; } = Data.GetVisitsOfPatient(Data.PatientId);
+        public ShowVisitsPatientVM()
+        {
+            foreach (var item in Visits)
+            {
+                item.Doctor = Data.FindDoctor(item.DoctorId);
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

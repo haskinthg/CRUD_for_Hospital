@@ -17,7 +17,7 @@
         <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
     </Window.Style>
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <ScrollViewer  VerticalScrollBarVisibility="Visible" >
             <TabControl>
                 <TabItem Header="Пациенты">
                     <Grid>
@@ -28,11 +28,11 @@
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel DataContext="{Binding addPatient}" Orientation="Horizontal" HorizontalAlignment="Center">
                                             <TextBlock Text="Фамилия" Margin="0,0,20,0"/>
-                                            <TextBox Width="150" Text="{Binding Path=PLastname, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,40,0" adonisExtensions:CornerRadiusExtension.CornerRadius="4"/>
+                                            <TextBox Width="150" Text="{Binding PLastname, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,40,0" adonisExtensions:CornerRadiusExtension.CornerRadius="4"/>
                                             <TextBlock Text="Имя" Margin="0,0,20,0"/>
-                                            <TextBox Width="150" Text="{Binding Path=PFirstname, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,40,0" adonisExtensions:CornerRadiusExtension.CornerRadius="4"/>
+                                            <TextBox Width="150" Text="{Binding PFirstname, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,40,0" adonisExtensions:CornerRadiusExtension.CornerRadius="4"/>
                                             <TextBlock Text="Отчество" Margin="0,0,20,0"/>
-                                            <TextBox Width="150" Text="{Binding Path=PSecondname, UpdateSourceTrigger=PropertyChanged}" adonisExtensions:CornerRadiusExtension.CornerRadius="4"/>
+                                            <TextBox Width="150" Text="{Binding PSecondname, UpdateSourceTrigger=PropertyChanged}" adonisExtensions:CornerRadiusExtension.CornerRadius="4"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal"  Margin="0,10,0,0" HorizontalAlignment="Center">
                                             <TextBlock Text="Телефон" Margin="0,0,23,0"/>
@@ -46,40 +46,42 @@
                                 </GroupBox>
                             </Expander>
                             <GroupBox Header="Пациенты" FontSize="12" Margin="5" adonisExtensions:CornerRadiusExtension.CornerRadius="4">
-                                <DataGrid x:Name="data" ItemsSource="{Binding Patients, UpdateSourceTrigger=Default}" AutoGenerateColumns="False" ColumnWidth="*"
+                                    <DataGrid x:Name="data" ItemsSource="{Binding Patients, UpdateSourceTrigger=Default}" AutoGenerateColumns="False" ColumnWidth="*"
                                       VerticalScrollBarVisibility="Auto"
                                       FontSize="12"
                                       adonisExtensions:CornerRadiusExtension.CornerRadius="4"
                                       IsReadOnly="True"
                                       SelectedItem="{Binding SelectedPatient,UpdateSourceTrigger=PropertyChanged}" >
-                                    <DataGrid.Columns >
-                                        <DataGridTextColumn Header="Имя" Binding="{Binding Path=PFirstname}"/>
-                                        <DataGridTextColumn Header="Отчество" Binding="{Binding Path=PSecondname}"/>
-                                        <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=PLastname}"/>
-                                        <DataGridTextColumn Header="Номер телефона" Binding="{Binding Path=PPhone}"/>
-                                        <DataGridTemplateColumn Header="История болезней">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button Content="Посмотреть" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                        <DataGridTemplateColumn Header="Запись на приём">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate >
-                                                    <Button 
+                                        <DataGrid.Columns >
+                                            <DataGridTextColumn Header="Имя" Binding="{Binding Path=PFirstname}"/>
+                                            <DataGridTextColumn Header="Отчество" Binding="{Binding Path=PSecondname}"/>
+                                            <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=PLastname}"/>
+                                            <DataGridTextColumn Header="Номер телефона" Binding="{Binding Path=PPhone}"/>
+                                            <DataGridTemplateColumn Header="История болезней">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button Content="Посмотреть"  Command="{Binding RelativeSource={RelativeSource 
+                                                         FindAncestor,
+                                                         AncestorType={x:Type Window}}, Path=DataContext.ShowVisitsCommand}"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="Запись на приём">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate >
+                                                        <Button 
                                                          Content="Записать" Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
                                                          Command="{Binding RelativeSource={RelativeSource 
                                                          FindAncestor,
                                                          AncestorType={x:Type Window}}, Path=DataContext.AddVisitWndowCommand}">
-                                                    </Button>
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </GroupBox>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </GroupBox>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <TextBlock FontSize="12" Text="Выберите строку в таблице и нажмите кнопку" Margin="0,0,20,0"/>
                                 <Button Width="90"  Content="Удалить" Command="{Binding RemovePatientCommand}" CommandParameter="{Binding SelectedPatient}"
                                 Background="{DynamicResource {x:Static adonisUi:Brushes.ErrorBrush}}"

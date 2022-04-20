@@ -7,7 +7,7 @@
         xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
         xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
         xmlns:d="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        Title="Просмотр приёмов" Height="240" Width="350"  IconVisibility="Collapsed" ResizeMode="NoResize">
+        Title="Просмотр приёмов" Height="240" Width="450"  IconVisibility="Collapsed" ResizeMode="NoResize">
     <Window.DataContext>
         <viewmodel:ShowVisitsPatientVM/>
     </Window.DataContext>
@@ -16,13 +16,29 @@
     </Window.Style>
     <Grid>
         <ScrollViewer>
-            <StackPanel>
+          <StackPanel>
             <GroupBox Header="Приёмы пациента" Margin="5" adonisExtensions:CornerRadiusExtension.CornerRadius="4">
-                    <DataGrid>
-                        
+                    <DataGrid FontSize="12" ItemsSource="{Binding Visits}"
+                          adonisExtensions:CornerRadiusExtension.CornerRadius="4"
+                          IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="*">
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Header="Дата" Binding="{Binding VDate}"/>
+                            <DataGridTextColumn Header="Время" Binding="{Binding VTine}"/>
+                            <DataGridTemplateColumn Header="Врач" MinWidth="200">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <Run Text="{Binding Doctor.DFisrtname}"/>
+                                            <Run Text="{Binding Doctor.DSecondname}"/>
+                                            <Run Text="{Binding Doctor.DLastname}"/>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns >
                     </DataGrid>
-            </GroupBox>
-        </StackPanel>
+                </GroupBox>
+            </StackPanel>
         </ScrollViewer>
     </Grid>
 </adonisControls:AdonisWindow>

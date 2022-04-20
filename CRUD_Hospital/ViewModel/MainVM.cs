@@ -81,8 +81,15 @@ namespace CRUD_Hospital.ViewModel
             set
             {
                 AddPatient = value;
-                OnPropertyChanged("Patient");
+                OnPropertyChanged("addPatient");
             }
+        }
+        private void clearAddPatient()
+        {
+            AddPatient.PLastname = "";
+            AddPatient.PFirstname = "";
+            AddPatient.PPhone = null;
+            AddPatient.PSecondname = "";
         }
 
 
@@ -92,6 +99,7 @@ namespace CRUD_Hospital.ViewModel
                    {
                        Patient patient = obj as Patient;
                        Data.AddToPatients(patient);
+                       clearAddPatient();
                        UpdatePatients();
                    },
                     (obj) => addPatient.PPhone != null && addPatient.PFirstname != null && addPatient.PLastname != null && addPatient.PSecondname != null));
@@ -123,6 +131,15 @@ namespace CRUD_Hospital.ViewModel
                 var window = new View.AddVisitWindow();
                 window.Show();
 
+            }));
+
+        private RelayCommand showVisitsCommand;
+        public RelayCommand ShowVisitsCommand => showVisitsCommand ??
+            (showVisitsCommand = new RelayCommand(obj =>
+            {
+                Data.PatientId= _selectedPatient.PatientId;
+                var window = new View.ShowVisitsPatient();
+                window.Show();
             }));
     }
 }

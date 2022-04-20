@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using AdonisUI.Controls;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,7 +14,16 @@ namespace CRUD_Hospital.Model
         public static int DepartmentId { get; set; }
         public static int PatientId { get; set; }
         public static int DoctorId { get; set; }
-
+        
+        public static Doctor FindDoctor(int id)
+        {
+            var doctor = new Doctor();
+            using(var db = new dbhospitalsContext())
+            {
+                doctor = db.Doctors.FirstOrDefault(i=>i.DoctorId==id);
+            }
+            return doctor;
+        }
         public static ObservableCollection<Patient> GetAllPatients()
         {
             var all = new ObservableCollection<Patient>();
@@ -71,7 +80,7 @@ namespace CRUD_Hospital.Model
             using(var db = new dbhospitalsContext())
             {
                 Npgsql.NpgsqlParameter PatientId = new Npgsql.NpgsqlParameter("@PatientId", id);
-                all = new ObservableCollection<Visit>(db.Visits.FromSqlRaw("SELECT * FROM VISITS WHERE PATIENT_ID = @PatientId",PatientId));
+                all = new ObservableCollection<Visit>(db.Visits.FromSqlRaw("SELECT * FROM VISITS WHERE PATIENT_ID = @PatientId", PatientId));
             }
             return all;
         }
