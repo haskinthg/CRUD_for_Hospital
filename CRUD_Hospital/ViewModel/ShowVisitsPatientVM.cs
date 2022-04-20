@@ -8,12 +8,12 @@ namespace CRUD_Hospital.ViewModel
 {
     internal class ShowVisitsPatientVM:INotifyPropertyChanged
     {
-        public ObservableCollection<Visit> Visits { get; set; } = Data.GetVisitsOfPatient(Data.PatientId);
+        public ObservableCollection<Visit> Visits { get; set; } = Data.GetVisitsOfPatient(Data.DoctorId);
         public ShowVisitsPatientVM()
         {
             foreach (var item in Visits)
             {
-                item.Doctor = Data.FindDoctor(item.DoctorId);
+                item.Patient = Data.FindPatient(item.PatientId);
             }
         }
 

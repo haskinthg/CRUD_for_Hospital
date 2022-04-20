@@ -24,6 +24,17 @@ namespace CRUD_Hospital.Model
             }
             return doctor;
         }
+
+        public static Patient FindPatient(int id)
+        {
+            var p = new Patient();
+            using (var db = new dbhospitalsContext())
+            {
+                p = db.Patients.FirstOrDefault(i => i.PatientId == id);
+            }
+            return p;
+        }
+
         public static ObservableCollection<Patient> GetAllPatients()
         {
             var all = new ObservableCollection<Patient>();
@@ -79,8 +90,8 @@ namespace CRUD_Hospital.Model
             var all = new ObservableCollection<Visit>();
             using(var db = new dbhospitalsContext())
             {
-                Npgsql.NpgsqlParameter PatientId = new Npgsql.NpgsqlParameter("@PatientId", id);
-                all = new ObservableCollection<Visit>(db.Visits.FromSqlRaw("SELECT * FROM VISITS WHERE PATIENT_ID = @PatientId", PatientId));
+                Npgsql.NpgsqlParameter DoctorId = new Npgsql.NpgsqlParameter("@DoctorId", id);
+                all = new ObservableCollection<Visit>(db.Visits.FromSqlRaw("SELECT * FROM VISITS WHERE DOCTOR_ID = @DoctorId", DoctorId));
             }
             return all;
         }
@@ -116,6 +127,18 @@ namespace CRUD_Hospital.Model
                 if(!db.Doctors.Contains(d))
                 {
                     db.Doctors.Add(d);
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public static void AddToHospitals(Hospital h)
+        {
+            using( var db = new dbhospitalsContext())
+            {
+                if(db.Hospitals.Contains(h))
+                {
+                    db.Hospitals.Add(h);
                     db.SaveChanges();
                 }
             }

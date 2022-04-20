@@ -50,7 +50,7 @@ namespace CRUD_Hospital.ViewModel
             }
         }
 
-        private Department _selectedDepartment = new Department() { HospitalId = 1 };
+        private Department _selectedDepartment = new Department() { HospitalId = Data.HospitalId };
         public Department SelectedDepartment
         {
             get
@@ -133,11 +133,19 @@ namespace CRUD_Hospital.ViewModel
 
             }));
 
+        private Doctor selectedDoctor;
+        public Doctor SelectedDoctor
+        {
+            get { return selectedDoctor; }
+            set { selectedDoctor = value; OnPropertyChanged("SelectedDoctor"); }
+
+        }
+
         private RelayCommand showVisitsCommand;
         public RelayCommand ShowVisitsCommand => showVisitsCommand ??
             (showVisitsCommand = new RelayCommand(obj =>
             {
-                Data.PatientId= _selectedPatient.PatientId;
+                Data.DoctorId = SelectedDoctor.DoctorId;
                 var window = new View.ShowVisitsPatient();
                 window.Show();
             }));

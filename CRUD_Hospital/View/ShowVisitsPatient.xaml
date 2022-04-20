@@ -7,7 +7,7 @@
         xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
         xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
         xmlns:d="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        Title="Просмотр приёмов" Height="240" Width="450"  IconVisibility="Collapsed" ResizeMode="NoResize">
+        Title="Просмотр приёмов" Height="300" Width="500"  IconVisibility="Collapsed" ResizeMode="NoResize">
     <Window.DataContext>
         <viewmodel:ShowVisitsPatientVM/>
     </Window.DataContext>
@@ -16,20 +16,20 @@
     </Window.Style>
     <Grid>
         <ScrollViewer>
-          <StackPanel>
-            <GroupBox Header="Приёмы пациента" Margin="5" >
+            <StackPanel>
+                <GroupBox Header="Приёмы у врача " Margin="5" >
                     <DataGrid FontSize="12" ItemsSource="{Binding Visits}"
                           IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="*">
                         <DataGrid.Columns >
                             <DataGridTextColumn Header="Дата" Binding="{Binding VDate}"/>
                             <DataGridTextColumn Header="Время" Binding="{Binding VTine}"/>
-                            <DataGridTemplateColumn Header="Врач" MinWidth="200">
+                            <DataGridTemplateColumn Header="Пациент" MinWidth="200">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
-                                            <Run Text="{Binding Doctor.DFisrtname}"/>
-                                            <Run Text="{Binding Doctor.DSecondname}"/>
-                                            <Run Text="{Binding Doctor.DLastname}"/>
+                                            <Run Text="{Binding Patient.PFirstname}"/>
+                                            <Run Text="{Binding Patient.PSecondname}"/>
+                                            <Run Text="{Binding Patient.PLastname}"/>
                                         </TextBlock>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

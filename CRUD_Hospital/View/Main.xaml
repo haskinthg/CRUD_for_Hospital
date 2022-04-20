@@ -60,7 +60,7 @@
                                                     <DataTemplate>
                                                         <Button Content="Посмотреть"  Command="{Binding RelativeSource={RelativeSource 
                                                          FindAncestor,
-                                                         AncestorType={x:Type Window}}, Path=DataContext.ShowVisitsCommand}"/>
+                                                         AncestorType={x:Type Window}}, Path=DataContext.ShowHistorysCommand}"/>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
@@ -124,7 +124,7 @@
                             </Expander>
                             <GroupBox Header="Врачи" FontSize="12" Margin="5" >
                                 <DataGrid ItemsSource="{Binding Doctors}" AutoGenerateColumns="False" ColumnWidth="*"
-                                      CanUserAddRows="False"
+                                      CanUserAddRows="False" SelectedItem="{Binding SelectedDoctor,UpdateSourceTrigger=PropertyChanged}"
                                       HorizontalScrollBarVisibility="Auto"
                                       FontSize="12"
                                       IsReadOnly="True"
@@ -135,13 +135,15 @@
                                         <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=DLastname}"/>
                                         <DataGridTextColumn Header="Должность" Binding="{Binding Path=DJobtitle}"/>
                                         <DataGridTextColumn Header="Телефон" Binding="{Binding Path=DPhone}"/>
-                                        <DataGridTemplateColumn Header="Расписание приемов">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button Content="Посмотреть" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Header="Расписание приемов" MinWidth="100">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Content="Посмотреть"  Command="{Binding RelativeSource={RelativeSource 
+                                                         FindAncestor,
+                                                         AncestorType={x:Type Window}}, Path=DataContext.ShowVisitsCommand}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
                                         <DataGridTemplateColumn Header="Запись на приём">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
