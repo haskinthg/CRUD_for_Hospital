@@ -1,0 +1,55 @@
+﻿<adonisControls:AdonisWindow x:Class="CRUD_Hospital.View.FirstWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+        xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+        xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+        xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
+        xmlns:d="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        Title="Выбор больницы" Height="350" Width="450"  IconVisibility="Collapsed" ResizeMode="NoResize" >
+    <Window.DataContext>
+        <viewmodel:FirstWindowVM/>
+    </Window.DataContext>
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
+    </Window.Style>
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <GroupBox Header="Выберите больницу" Margin="20" adonisExtensions:CornerRadiusExtension.CornerRadius="4" Width="310">
+                    <ComboBox adonisExtensions:CornerRadiusExtension.CornerRadius="4" SelectedValue="{Binding SelectedHospital,UpdateSourceTrigger=PropertyChanged}"
+                          ItemsSource="{Binding Hospitals}" DisplayMemberPath="HName" >
+                        <d:Interaction.Triggers>
+                            <d:EventTrigger EventName="SelectionChanged">
+                                <d:InvokeCommandAction Command="{Binding SelectedCommand}" 
+                                                   CommandParameter="{Binding SelectedHospital}"/>
+                            </d:EventTrigger>
+                        </d:Interaction.Triggers>
+                    </ComboBox>
+                </GroupBox>
+                <Button Height="40" Width="80" adonisExtensions:CornerRadiusExtension.CornerRadius="4"
+                        Background="{DynamicResource {x:Static adonisUi:Brushes.AccentHighlightBrush}}">
+                    Добавить
+                </Button>
+            </StackPanel>
+            <GroupBox Header="Информация о выбранной больнице" Margin="20,0" adonisExtensions:CornerRadiusExtension.CornerRadius="4"
+                      >
+                <DataGrid FontSize="12" ItemsSource="{Binding sHospital}"
+                          adonisExtensions:CornerRadiusExtension.CornerRadius="4"
+                          IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="*">
+                    <DataGrid.Columns >
+                        <DataGridTextColumn Header="Название" Binding="{Binding Path=HName}"/>
+                        <DataGridTextColumn Header="Город" Binding="{Binding Path=HCity}"/>
+                        <DataGridTextColumn Header="Адрес" Binding="{Binding Path=HAddress}"/>
+                    </DataGrid.Columns >
+                </DataGrid>
+            </GroupBox>
+            <Button Width="90" Height="30" adonisExtensions:CornerRadiusExtension.CornerRadius="4" Margin="10"
+                    Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
+                    Command="{Binding OpenMainWindowCommand}" CommandParameter="{Binding SelectedHospital}">
+                Открыть
+            </Button>
+        </StackPanel>
+    </Grid>
+</adonisControls:AdonisWindow>

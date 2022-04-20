@@ -1,0 +1,116 @@
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CRUD_Hospital.Model
+{
+    internal static class Data
+    {
+        public static int HospitalId { get; set; }
+        public static Visit AddVisit { get; set; }
+
+        public static ObservableCollection<Patient> GetAllPatients()
+        {
+            var all = new ObservableCollection<Patient>();
+            using (var db = new dbhospitalsContext())
+            {
+                all = new ObservableCollection<Patient>(db.Patients);
+            }
+            return all;
+        }
+
+        public static ObservableCollection<Department> GetAllDepartments()
+        {
+            var all = new ObservableCollection<Department>();
+            using (var db = new dbhospitalsContext())
+            {
+                all = new ObservableCollection<Department>(db.Departments);
+            }
+            return all;
+        }
+
+        public static ObservableCollection<Doctor> GetAllDoctors(int id)
+        {
+            var all = new ObservableCollection<Doctor>();
+            using (var db = new dbhospitalsContext())
+            {
+                Npgsql.NpgsqlParameter DepartmentId = new Npgsql.NpgsqlParameter("@DepartmentId",id);
+                all = new ObservableCollection<Doctor>(db.Doctors.FromSqlRaw("SELECT * FROM DOCTORS WHERE Department_Id = @DepartmentId",DepartmentId));
+            }
+            return all;
+        }
+
+        public static ObservableCollection<Hospital> GetAllHospitals()
+        {
+            var all = new ObservableCollection<Hospital>();
+            using(var db = new dbhospitalsContext())
+            {
+                all = new ObservableCollection<Hospital>(db.Hospitals);
+            }
+            return all;
+        }
+
+        public static void AddToPatients(Patient p)
+        {
+            using (var db = new dbhospitalsContext())
+            {
+                if (!db.Patients.Contains(p))
+                {
+                    db.Patients.Add(p);
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public static void AddToVisits(Visit v)
+        {
+            using(var db= new dbhospitalsContext())
+            {
+                if(!db.Visits.Contains(v))
+                {
+                    db.Visits.Add(v);
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public static void AddToDoctors(Doctor d)
+        {
+            using(var db = new dbhospitalsContext())
+            {
+                if(!db.Doctors.Contains(d))
+                {
+                    db.Doctors.Add(d);
+                    db.SaveChanges();
+                }
+            }
+        }
+
+
+        public static void DeleteFromPatients(Patient p)
+        {
+            using(var db = new dbhospitalsContext())
+            {
+                db.Patients.Remove(p);
+                db.SaveChanges();
+            }
+        }
+        
+        public static void UpdatePatient(Patient oldp, string First, string Second, string Last, long Phone)
+        {
+            using (var db = new dbhospitalsContext())
+            {
+                var searchPatient = db.Patients.Find(oldp);
+                searchPatient.PFirstname= First;
+                searchPatient.PSecondname= Second;
+                searchPatient.PLastname= Last;
+                searchPatient.PPhone= Phone;
+                db.SaveChanges();
+            }
+        }
+    }
+}

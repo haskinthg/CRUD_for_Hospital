@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CRUD_Hospital": {
+      "commandName": "Project",
+      "sqlDebugging": true
+    }
+  }
+}
