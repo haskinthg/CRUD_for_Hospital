@@ -11,13 +11,13 @@ namespace CRUD_Hospital.Model
         public static int PatientId { get; set; }
         public static int DoctorId { get; set; }
         public static int MedicalHistoryId { get; set; }
-        
+
         public static Doctor FindDoctor(int id)
         {
             var doctor = new Doctor();
-            using(var db = new dbhospitalsContext())
+            using (var db = new dbhospitalsContext())
             {
-                doctor = db.Doctors.FirstOrDefault(i=>i.DoctorId==id);
+                doctor = db.Doctors.FirstOrDefault(i => i.DoctorId == id);
             }
             return doctor;
         }
@@ -37,9 +37,19 @@ namespace CRUD_Hospital.Model
             var m = new Medicalhistory();
             using (var db = new dbhospitalsContext())
             {
-                m = db.Medicalhistories.FirstOrDefault(i=>m.PatientId==id);
+                if (db.Medicalhistories.Any(i => i.PatientId == id))
+                {
+                    m = db.Medicalhistories.FirstOrDefault(i => i.PatientId == id);
+                    MedicalHistoryId = m.MedicalhistoryId;
+                }
+                else
+                {
+                    m = new Medicalhistory { PatientId = id };
+                    db.Medicalhistories.Add(m);
+                    db.SaveChanges();
+                    m = db.Medicalhistories.FirstOrDefault(i => i.PatientId == id);
+                }
             }
-            MedicalHistoryId = m.MedicalhistoryId;
             return m;
         }
 
@@ -68,8 +78,8 @@ namespace CRUD_Hospital.Model
             var all = new ObservableCollection<Doctor>();
             using (var db = new dbhospitalsContext())
             {
-                Npgsql.NpgsqlParameter DepartmentId = new Npgsql.NpgsqlParameter("@DepartmentId",id);
-                all = new ObservableCollection<Doctor>(db.Doctors.FromSqlRaw("SELECT * FROM DOCTORS WHERE Department_Id = @DepartmentId",DepartmentId));
+                Npgsql.NpgsqlParameter DepartmentId = new Npgsql.NpgsqlParameter("@DepartmentId", id);
+                all = new ObservableCollection<Doctor>(db.Doctors.FromSqlRaw("SELECT * FROM DOCTORS WHERE Department_Id = @DepartmentId", DepartmentId));
             }
             return all;
         }
@@ -86,7 +96,7 @@ namespace CRUD_Hospital.Model
         public static ObservableCollection<Hospital> GetAllHospitals()
         {
             var all = new ObservableCollection<Hospital>();
-            using(var db = new dbhospitalsContext())
+            using (var db = new dbhospitalsContext())
             {
                 all = new ObservableCollection<Hospital>(db.Hospitals);
             }
@@ -96,7 +106,7 @@ namespace CRUD_Hospital.Model
         public static ObservableCollection<Visit> GetVisitsOfPatient(int id)
         {
             var all = new ObservableCollection<Visit>();
-            using(var db = new dbhospitalsContext())
+            using (var db = new dbhospitalsContext())
             {
                 Npgsql.NpgsqlParameter DoctorId = new Npgsql.NpgsqlParameter("@DoctorId", id);
                 all = new ObservableCollection<Visit>(db.Visits.FromSqlRaw("SELECT * FROM VISITS WHERE DOCTOR_ID = @DoctorId", DoctorId));
@@ -107,10 +117,10 @@ namespace CRUD_Hospital.Model
         public static ObservableCollection<Disease> GetHistoryList(int id)
         {
             var all = new ObservableCollection<Disease>();
-            using(var db = new dbhospitalsContext())
+            using (var db = new dbhospitalsContext())
             {
                 Npgsql.NpgsqlParameter HistoryId = new Npgsql.NpgsqlParameter("@HistoryId", id);
-                all = new ObservableCollection<Disease>(db.Diseases.FromSqlRaw("SELECT * FROM DESIASE WHERE MEDICALHISTORY_ID = @HistoryId", HistoryId));
+                all = new ObservableCollection<Disease>(db.Diseases.FromSqlRaw("SELECT * FROM DISEASES WHERE MEDICALHISTIRY_ID = @HistoryId", HistoryId));
             }
             return all;
         }
@@ -129,9 +139,9 @@ namespace CRUD_Hospital.Model
 
         public static void AddToVisits(Visit v)
         {
-            using(var db= new dbhospitalsContext())
+            using (var db = new dbhospitalsContext())
             {
-                if(!db.Visits.Contains(v))
+                if (!db.Visits.Contains(v))
                 {
                     db.Visits.Add(v);
                     db.SaveChanges();
@@ -141,9 +151,9 @@ namespace CRUD_Hospital.Model
 
         public static void AddToDoctors(Doctor d)
         {
-            using(var db = new dbhospitalsContext())
+            using (var db = new dbhospitalsContext())
             {
-                if(!db.Doctors.Contains(d))
+                if (!db.Doctors.Contains(d))
                 {
                     db.Doctors.Add(d);
                     db.SaveChanges();
@@ -153,9 +163,9 @@ namespace CRUD_Hospital.Model
 
         public static void AddToHospitals(Hospital h)
         {
-            using( var db = new dbhospitalsContext())
+            using (var db = new dbhospitalsContext())
             {
-                if(db.Hospitals.Contains(h))
+                if (db.Hospitals.Contains(h))
                 {
                     db.Hospitals.Add(h);
                     db.SaveChanges();
@@ -166,22 +176,22 @@ namespace CRUD_Hospital.Model
 
         public static void DeleteFromPatients(Patient p)
         {
-            using(var db = new dbhospitalsContext())
+            using (var db = new dbhospitalsContext())
             {
                 db.Patients.Remove(p);
                 db.SaveChanges();
             }
         }
-        
+
         public static void UpdatePatient(Patient oldp, string First, string Second, string Last, long Phone)
         {
             using (var db = new dbhospitalsContext())
             {
                 var searchPatient = db.Patients.Find(oldp);
-                searchPatient.PFirstname= First;
-                searchPatient.PSecondname= Second;
-                searchPatient.PLastname= Last;
-                searchPatient.PPhone= Phone;
+                searchPatient.PFirstname = First;
+                searchPatient.PSecondname = Second;
+                searchPatient.PLastname = Last;
+                searchPatient.PPhone = Phone;
                 db.SaveChanges();
             }
         }

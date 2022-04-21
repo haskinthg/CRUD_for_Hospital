@@ -60,7 +60,7 @@
                                                     <DataTemplate>
                                                         <Button Content="Посмотреть"  Command="{Binding RelativeSource={RelativeSource 
                                                          FindAncestor,
-                                                         AncestorType={x:Type Window}}, Path=DataContext.ShowHistorysCommand}"/>
+                                                         AncestorType={x:Type Window}}, Path=DataContext.ShowHistoryCommand}"/>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>

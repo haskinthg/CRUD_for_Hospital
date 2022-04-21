@@ -1,13 +1,10 @@
 ﻿<adonisControls:AdonisWindow x:Class="CRUD_Hospital.View.History"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
-        xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
-        xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
-        xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
-        xmlns:d="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        Title="Просмотр истории болезней" Height="300" Width="400"  IconVisibility="Collapsed" ResizeMode="NoResize">
+                             xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+                             xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+                             xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
+                             Title="Просмотр истории болезней" Height="300" Width="400"  IconVisibility="Collapsed" ResizeMode="NoResize">
     <Window.DataContext>
         <viewmodel:HistoryVM/>
     </Window.DataContext>
@@ -17,7 +14,15 @@
     <Grid>
         <ScrollViewer>
             <StackPanel>
-                <GroupBox Header="Заболевания " Margin="5" >
+                <GroupBox  Margin="5" >
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0,2,0,0" Text="Заболевания" HorizontalAlignment="Left"/>
+                            <Button Margin="10,0,0,0" Content="Добавить" Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}" HorizontalAlignment="Right">
+                                
+                            </Button>
+                        </StackPanel>
+                    </GroupBox.Header>
                     <DataGrid FontSize="12" ItemsSource="{Binding Diseases}"
                           IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="*">
                         <DataGrid.Columns >
