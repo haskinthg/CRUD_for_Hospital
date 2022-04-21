@@ -142,5 +142,14 @@ namespace CRUD_Hospital.ViewModel
                 var window = new View.ShowVisitsPatient();
                 window.Show();
             }));
+
+        private RelayCommand showHistoryCommand;
+        public RelayCommand ShowHistoryCommand => showHistoryCommand ??
+            (showHistoryCommand = new RelayCommand(obj =>
+            {
+                Data.PatientId = _selectedPatient.PatientId;
+                var window = new View.History();
+                window.Show();
+            }));
     }
 }

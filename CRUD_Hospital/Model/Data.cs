@@ -10,6 +10,7 @@ namespace CRUD_Hospital.Model
         public static int DepartmentId { get; set; }
         public static int PatientId { get; set; }
         public static int DoctorId { get; set; }
+        public static int MedicalHistoryId { get; set; }
         
         public static Doctor FindDoctor(int id)
         {
@@ -29,6 +30,17 @@ namespace CRUD_Hospital.Model
                 p = db.Patients.FirstOrDefault(i => i.PatientId == id);
             }
             return p;
+        }
+
+        public static Medicalhistory FindHistory(int id)
+        {
+            var m = new Medicalhistory();
+            using (var db = new dbhospitalsContext())
+            {
+                m = db.Medicalhistories.FirstOrDefault(i=>m.PatientId==id);
+            }
+            MedicalHistoryId = m.MedicalhistoryId;
+            return m;
         }
 
         public static ObservableCollection<Patient> GetAllPatients()
@@ -88,6 +100,17 @@ namespace CRUD_Hospital.Model
             {
                 Npgsql.NpgsqlParameter DoctorId = new Npgsql.NpgsqlParameter("@DoctorId", id);
                 all = new ObservableCollection<Visit>(db.Visits.FromSqlRaw("SELECT * FROM VISITS WHERE DOCTOR_ID = @DoctorId", DoctorId));
+            }
+            return all;
+        }
+
+        public static ObservableCollection<Disease> GetHistoryList(int id)
+        {
+            var all = new ObservableCollection<Disease>();
+            using(var db = new dbhospitalsContext())
+            {
+                Npgsql.NpgsqlParameter HistoryId = new Npgsql.NpgsqlParameter("@HistoryId", id);
+                all = new ObservableCollection<Disease>(db.Diseases.FromSqlRaw("SELECT * FROM DESIASE WHERE MEDICALHISTORY_ID = @HistoryId", HistoryId));
             }
             return all;
         }

@@ -135,7 +135,7 @@
                                         <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=DLastname}"/>
                                         <DataGridTextColumn Header="Должность" Binding="{Binding Path=DJobtitle}"/>
                                         <DataGridTextColumn Header="Телефон" Binding="{Binding Path=DPhone}"/>
-                                        <DataGridTemplateColumn Header="Расписание приемов" MinWidth="100">
+                                    <DataGridTemplateColumn Header="Расписание приемов" MinWidth="100">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button Content="Посмотреть"  Command="{Binding RelativeSource={RelativeSource 
@@ -144,14 +144,7 @@
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                        <DataGridTemplateColumn Header="Запись на приём">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button Content="Записать" Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"/>
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                    </DataGrid.Columns>
+                                </DataGrid.Columns>
                                 </DataGrid>
                             </GroupBox>
                         </StackPanel>

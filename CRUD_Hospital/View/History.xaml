@@ -1,0 +1,32 @@
+﻿<adonisControls:AdonisWindow x:Class="CRUD_Hospital.View.History"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+        xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+        xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+        xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
+        xmlns:d="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        Title="Просмотр истории болезней" Height="300" Width="400"  IconVisibility="Collapsed" ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewmodel:HistoryVM/>
+    </Window.DataContext>
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
+    </Window.Style>
+    <Grid>
+        <ScrollViewer>
+            <StackPanel>
+                <GroupBox Header="Заболевания " Margin="5" >
+                    <DataGrid FontSize="12" ItemsSource="{Binding Diseases}"
+                          IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="*">
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Header="Наименования" Binding="{Binding Path=DName}"/>
+                        </DataGrid.Columns >
+                    </DataGrid>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</adonisControls:AdonisWindow>
+
