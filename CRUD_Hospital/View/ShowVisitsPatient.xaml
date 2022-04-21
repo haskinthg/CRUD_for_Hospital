@@ -15,29 +15,27 @@
         <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
     </Window.Style>
     <Grid>
-        <ScrollViewer>
-            <StackPanel>
-                <GroupBox Header="Приёмы у врача " Margin="5" >
-                    <DataGrid FontSize="12" ItemsSource="{Binding Visits}"
+        <StackPanel>
+            <GroupBox Header="Приёмы у врача " Margin="5" >
+                <DataGrid Height="210"  FontSize="12" ItemsSource="{Binding Visits}"
                           IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="*">
-                        <DataGrid.Columns >
-                            <DataGridTextColumn Header="Дата" Binding="{Binding VDate}"/>
-                            <DataGridTextColumn Header="Время" Binding="{Binding VTine}"/>
-                            <DataGridTemplateColumn Header="Пациент" MinWidth="200">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock>
+                    <DataGrid.Columns >
+                        <DataGridTextColumn Header="Дата" Binding="{Binding VDate}"/>
+                        <DataGridTextColumn Header="Время" Binding="{Binding VTine}"/>
+                        <DataGridTemplateColumn Header="Пациент" MinWidth="200">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
                                             <Run Text="{Binding Patient.PFirstname}"/>
                                             <Run Text="{Binding Patient.PSecondname}"/>
                                             <Run Text="{Binding Patient.PLastname}"/>
-                                        </TextBlock>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns >
-                    </DataGrid>
-                </GroupBox>
-            </StackPanel>
-        </ScrollViewer>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns >
+                </DataGrid>
+            </GroupBox>
+        </StackPanel>
     </Grid>
 </adonisControls:AdonisWindow>

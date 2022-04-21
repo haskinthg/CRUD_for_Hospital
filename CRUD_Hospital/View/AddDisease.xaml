@@ -1,0 +1,30 @@
+﻿<adonisControls:AdonisWindow x:Class="CRUD_Hospital.View.AddDisease"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+                             xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+                             xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
+                             Title="Добавление заболевания" Height="180" Width="300"  IconVisibility="Collapsed" ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewmodel:AddDiseaseVM/>
+    </Window.DataContext>
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
+    </Window.Style>
+    <Grid>
+        <ScrollViewer>
+            <StackPanel>
+                <GroupBox Header="Информация о заболевании" Margin="5" >
+                    <StackPanel>
+                        <StackPanel Margin="15" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Название" Margin="0,0,30,0"/>
+                            <TextBox Width="120" Text="{Binding Disease.DName,UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <Button Width="90" Command="{Binding AddDiseaseCommand}" CommandParameter="{Binding Disease}"
+                                Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}">Добавить</Button>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</adonisControls:AdonisWindow>

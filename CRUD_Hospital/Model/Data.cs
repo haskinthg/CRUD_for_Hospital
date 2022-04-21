@@ -165,11 +165,21 @@ namespace CRUD_Hospital.Model
         {
             using (var db = new dbhospitalsContext())
             {
-                if (db.Hospitals.Contains(h))
+                if (!db.Hospitals.Contains(h))
                 {
                     db.Hospitals.Add(h);
                     db.SaveChanges();
                 }
+            }
+        }
+
+        public static void AddToDiseases(Disease d)
+        {
+            using(var db = new dbhospitalsContext())
+            {
+                if(!db.Diseases.Contains(d))
+                    db.Diseases.Add(d);
+                db.SaveChanges();
             }
         }
 

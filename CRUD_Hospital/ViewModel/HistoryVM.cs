@@ -1,4 +1,5 @@
-﻿using CRUD_Hospital.Model;
+﻿using CRUD_Hospital.Command;
+using CRUD_Hospital.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -17,5 +18,28 @@ namespace CRUD_Hospital.ViewModel
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+        private void UpdateTable()
+        {
+            Diseases.Clear();
+            foreach (Disease d in Data.GetHistoryList(Data.MedicalHistoryId))
+            {
+                Diseases.Add(d);
+            }
+        }
+        private RelayCommand showAddDisease;
+        public RelayCommand ShowAddDisease => showAddDisease ??
+            (showAddDisease = new RelayCommand(obj =>
+            {
+                var window = new View.AddDisease();
+                Data.MedicalHistoryId = History.MedicalhistoryId;
+                window.Show();
+            }));
+
+        private RelayCommand updateCommand;
+        public RelayCommand UpdateCommand => updateCommand ??
+            (updateCommand = new RelayCommand(obj =>
+            {
+                UpdateTable();
+            }));
     }
 }

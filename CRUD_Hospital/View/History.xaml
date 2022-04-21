@@ -1,6 +1,7 @@
 ﻿<adonisControls:AdonisWindow x:Class="CRUD_Hospital.View.History"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
                              xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
                              xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
                              xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
@@ -11,27 +12,27 @@
     <Window.Style>
         <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
     </Window.Style>
-    <Grid>
-        <ScrollViewer>
-            <StackPanel>
-                <GroupBox  Margin="5" >
-                    <GroupBox.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="0,2,0,0" Text="Заболевания" HorizontalAlignment="Left"/>
-                            <Button Margin="10,0,0,0" Content="Добавить" Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}" HorizontalAlignment="Right">
-                                
-                            </Button>
-                        </StackPanel>
-                    </GroupBox.Header>
-                    <DataGrid FontSize="12" ItemsSource="{Binding Diseases}"
+    <Grid >
+        <StackPanel>
+            <GroupBox>
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0,2,0,0" Text="Заболевания" HorizontalAlignment="Left"/>
+                        <Button Command="{Binding ShowAddDisease}"
+                                Margin="10,0,0,0" Content="Добавить" Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}" HorizontalAlignment="Right">
+
+                        </Button>
+                        <Button Margin="120,0,0,0"  Content="Обновить" Command="{Binding UpdateCommand}"/>
+                    </StackPanel>
+                </GroupBox.Header>
+                <DataGrid FontSize="12" ItemsSource="{Binding Diseases}" Height="215"
                           IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="*">
-                        <DataGrid.Columns >
-                            <DataGridTextColumn Header="Наименования" Binding="{Binding Path=DName}"/>
-                        </DataGrid.Columns >
-                    </DataGrid>
-                </GroupBox>
-            </StackPanel>
-        </ScrollViewer>
+                    <DataGrid.Columns >
+                        <DataGridTextColumn Header="Наименования" Binding="{Binding Path=DName}"/>
+                    </DataGrid.Columns >
+                </DataGrid>
+            </GroupBox>
+        </StackPanel>
     </Grid>
 </adonisControls:AdonisWindow>
 

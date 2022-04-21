@@ -12,10 +12,13 @@
                 <ResourceDictionary Source="pack://application:,,,/AdonisUI.ClassicTheme;component/Resources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <CornerRadius x:Key="{x:Static adonisUi:Dimensions.CornerRadius}">4</CornerRadius>
-            <Style TargetType="ScrollBar"
-               BasedOn="{StaticResource {x:Type ScrollBar}}">
-                <Setter Property="adonisExtensions:ScrollBarExtension.ExpansionMode" Value="NeverExpand"/>
+            <Style  TargetType="ScrollViewer"
+               BasedOn="{StaticResource {x:Type ScrollViewer}}">
+                <Setter Property="adonisExtensions:ScrollViewerExtension.VerticalScrollBarExpansionMode" Value= "NeverExpand"/>
+                <Setter Property="adonisExtensions:ScrollViewerExtension.VerticalScrollBarPlacement" Value="Overlay"/>
+                <Setter Property="Margin" Value="0,0,-5,0"/>
             </Style>
+           
         </ResourceDictionary>
     </Application.Resources>
 </Application>
