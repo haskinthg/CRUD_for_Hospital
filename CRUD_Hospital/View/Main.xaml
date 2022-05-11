@@ -71,6 +71,7 @@
                                                          FindAncestor,
                                                          AncestorType={x:Type Window}}, Path=DataContext.AddVisitWndowCommand}">
                                                         </Button>
+                                                        
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>

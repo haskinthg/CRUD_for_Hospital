@@ -11,7 +11,11 @@ namespace CRUD_Hospital.Model
     {
         public dbhospitalsContext()
         {
-            Database.EnsureCreated();
+        }
+
+        public dbhospitalsContext(DbContextOptions<dbhospitalsContext> options)
+            : base(options)
+        {
         }
 
         public virtual DbSet<Department> Departments { get; set; } = null!;
@@ -55,13 +59,15 @@ namespace CRUD_Hospital.Model
                 entity.HasOne(d => d.Hospital)
                     .WithMany(p => p.Departments)
                     .HasForeignKey(d => d.HospitalId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("departments_hospital_id_fkey");
             });
 
             modelBuilder.Entity<Disease>(entity =>
             {
                 entity.ToTable("diseases");
+
+                entity.HasIndex(e => e.MedicalhistiryId, "diseases_medicalhistiry_id_key")
+                    .IsUnique();
 
                 entity.Property(e => e.DiseaseId).HasColumnName("disease_id");
 
@@ -72,9 +78,8 @@ namespace CRUD_Hospital.Model
                     .HasColumnName("medicalhistiry_id");
 
                 entity.HasOne(d => d.Medicalhistiry)
-                    .WithMany(p => p.Diseases)
-                    .HasForeignKey(d => d.MedicalhistiryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .WithOne(p => p.Disease)
+                    .HasForeignKey<Disease>(d => d.MedicalhistiryId)
                     .HasConstraintName("diseases_medicalhistiry_id_fkey");
             });
 
@@ -101,7 +106,6 @@ namespace CRUD_Hospital.Model
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.Doctors)
                     .HasForeignKey(d => d.DepartmentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("doctors_department_id_fkey");
             });
 
@@ -131,7 +135,6 @@ namespace CRUD_Hospital.Model
                 entity.HasOne(d => d.Patient)
                     .WithMany(p => p.Medicalhistories)
                     .HasForeignKey(d => d.PatientId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("medicalhistories_patient_id_fkey");
             });
 
@@ -150,7 +153,6 @@ namespace CRUD_Hospital.Model
                 entity.HasOne(d => d.Treatment)
                     .WithMany(p => p.Medications)
                     .HasForeignKey(d => d.TreatmentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("medications_treatment_id_fkey");
             });
 
@@ -175,7 +177,6 @@ namespace CRUD_Hospital.Model
                 entity.HasOne(d => d.Hospital)
                     .WithMany(p => p.Patients)
                     .HasForeignKey(d => d.HospitalId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("patients_hospital_id_fkey");
             });
 
@@ -199,7 +200,6 @@ namespace CRUD_Hospital.Model
                 entity.HasOne(d => d.Treatment)
                     .WithMany(p => p.Services)
                     .HasForeignKey(d => d.TreatmentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("services_treatment_id_fkey");
             });
 
@@ -207,21 +207,24 @@ namespace CRUD_Hospital.Model
             {
                 entity.ToTable("treatments");
 
-                entity.HasIndex(e => e.VisitId, "treatments_visit_id_key")
+                entity.HasIndex(e => e.PatientId, "treatments_patient_id_key")
                     .IsUnique();
 
                 entity.Property(e => e.TreatmentId).HasColumnName("treatment_id");
 
                 entity.Property(e => e.Countdays).HasColumnName("countdays");
 
+                entity.Property(e => e.PatientId)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("patient_id");
+
                 entity.Property(e => e.VisitId)
                     .ValueGeneratedOnAdd()
                     .HasColumnName("visit_id");
 
                 entity.HasOne(d => d.Visit)
-                    .WithOne(p => p.Treatment)
-                    .HasForeignKey<Treatment>(d => d.VisitId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .WithMany(p => p.Treatments)
+                    .HasForeignKey(d => d.VisitId)
                     .HasConstraintName("treatments_visit_id_fkey");
             });
 
@@ -246,13 +249,11 @@ namespace CRUD_Hospital.Model
                 entity.HasOne(d => d.Doctor)
                     .WithMany(p => p.Visits)
                     .HasForeignKey(d => d.DoctorId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("visits_doctor_id_fkey");
 
                 entity.HasOne(d => d.Patient)
                     .WithMany(p => p.Visits)
                     .HasForeignKey(d => d.PatientId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("visits_patient_id_fkey");
             });
 

@@ -18,7 +18,7 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <GroupBox Header="Выберите больницу" Margin="20"  Width="310">
-                    <ComboBox  SelectedValue="{Binding SelectedHospital,UpdateSourceTrigger=PropertyChanged}"
+                    <ComboBox  SelectedValue="{Binding SelectedHospital,UpdateSourceTrigger=PropertyChanged}" 
                           ItemsSource="{Binding Hospitals}" DisplayMemberPath="HName" >
                         <d:Interaction.Triggers>
                             <d:EventTrigger EventName="SelectionChanged">
