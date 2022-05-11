@@ -10,14 +10,18 @@ namespace CRUD_Hospital.ViewModel
     internal class MainVM : INotifyPropertyChanged
 
     {
-        public ObservableCollection<Patient> Patients { get; set; } = Data.GetAllPatients();
+        public ObservableCollection<Patient> Patients { get; set; } = new ObservableCollection<Patient>();
         public ObservableCollection<Doctor> Doctors { get; set; } = new ObservableCollection<Doctor>();
-        public ObservableCollection<Department> Departments { get; } = Data.GetAllDepartments();
+        public ObservableCollection<Department> Departments { get; } = new ObservableCollection<Department>();
+        public MainVM()
+        {
+           UpdatePatients();
+        }
 
         public void UpdatePatients()
         {
             Patients.Clear();
-            foreach (var item in Data.GetAllPatients())
+            foreach (var item in Data.GetAllPatients(Data.HospitalId))
                 Patients.Add(item);
         }
 
@@ -64,7 +68,7 @@ namespace CRUD_Hospital.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
-        private Patient AddPatient = new Patient { HospitalId = 1 };
+        private Patient AddPatient = new Patient { HospitalId = Data.HospitalId };
         public Patient addPatient
         {
             get

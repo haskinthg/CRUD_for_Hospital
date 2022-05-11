@@ -19,10 +19,9 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="0,2,0,0" Text="Заболевания" HorizontalAlignment="Left"/>
                         <Button Command="{Binding ShowAddDisease}"
-                                Margin="10,0,0,0" Content="Добавить" Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}" HorizontalAlignment="Right">
+                                Margin="230,0,0,0" Content="Добавить" Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}" HorizontalAlignment="Right">
 
                         </Button>
-                        <Button Margin="120,0,0,0"  Content="Обновить" Command="{Binding UpdateCommand}"/>
                     </StackPanel>
                 </GroupBox.Header>
                 <DataGrid FontSize="12" ItemsSource="{Binding Diseases}" Height="215"

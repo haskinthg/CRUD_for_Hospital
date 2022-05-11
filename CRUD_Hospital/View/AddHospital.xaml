@@ -1,0 +1,40 @@
+﻿<adonisControls:AdonisWindow x:Class="CRUD_Hospital.View.AddHospital"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+        xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+        xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+        xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
+        xmlns:d="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        Title="Добавление больницы" Height="300" Width="450"  IconVisibility="Collapsed" ResizeMode="NoResize" >
+    <Window.DataContext>
+        <viewmodel:AddHospitalVM/>
+    </Window.DataContext>
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
+    </Window.Style>
+    <Grid>
+        <StackPanel Margin="10">
+            <GroupBox Margin="10" Header="Введите данные">
+                <StackPanel Margin="30,10,10,10">
+                    <StackPanel Margin="5"  Orientation="Horizontal">
+                        <TextBlock Margin="0,0,20,0">Название</TextBlock>
+                        <TextBox Width="240" Text="{Binding AddHospital.HName, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel >
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock Margin="0,0,40,0">Город</TextBlock>
+                        <TextBox Width="240" Text="{Binding AddHospital.HCity, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock Margin="0,0,40,0">Адрес</TextBlock>
+                        <TextBox Width="240" Text="{Binding AddHospital.HAddress, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                    <Button Margin="10" Width="90" Height="30" Content="Добавить"
+                            Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
+                            Command="{Binding AddHospitalCommand}" CommandParameter="{Binding AddHospital}"/>
+                </StackPanel>    
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</adonisControls:AdonisWindow>

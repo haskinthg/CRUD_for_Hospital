@@ -17,7 +17,7 @@ namespace CRUD_Hospital.Model
             var doctor = new Doctor();
             using (var db = new dbhospitalsContext())
             {
-                doctor = db.Doctors.FirstOrDefault(i => i.DoctorId == id);
+                doctor = db.Doctors.FirstOrDefault((i => i.DoctorId == id));
             }
             return doctor;
         }
@@ -53,12 +53,13 @@ namespace CRUD_Hospital.Model
             return m;
         }
 
-        public static ObservableCollection<Patient> GetAllPatients()
+        public static ObservableCollection<Patient> GetAllPatients(int HID)
         {
             var all = new ObservableCollection<Patient>();
             using (var db = new dbhospitalsContext())
             {
-                all = new ObservableCollection<Patient>(db.Patients);
+                Npgsql.NpgsqlParameter HId = new("@HId", HID);
+                all = new ObservableCollection<Patient>(db.Patients.FromSqlRaw("select * from patients where hospital_id = @HId", HId));
             }
             return all;
         }
@@ -189,6 +190,15 @@ namespace CRUD_Hospital.Model
             using (var db = new dbhospitalsContext())
             {
                 db.Patients.Remove(p);
+                db.SaveChanges();
+            }
+        }
+
+        public static void DeleteFromHospitals(Hospital h)
+        {
+            using(var db = new dbhospitalsContext())
+            {
+                db.Hospitals.Remove(h);
                 db.SaveChanges();
             }
         }

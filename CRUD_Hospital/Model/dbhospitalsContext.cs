@@ -13,10 +13,6 @@ namespace CRUD_Hospital.Model
         {
         }
 
-        public dbhospitalsContext(DbContextOptions<dbhospitalsContext> options)
-            : base(options)
-        {
-        }
 
         public virtual DbSet<Department> Departments { get; set; } = null!;
         public virtual DbSet<Disease> Diseases { get; set; } = null!;

@@ -45,7 +45,7 @@
                                 </GroupBox>
                             </Expander>
                         <GroupBox Header="Пациенты" FontSize="12" Margin="5"  >
-                            <DataGrid x:Name="data" ItemsSource="{Binding Patients, UpdateSourceTrigger=Default}" AutoGenerateColumns="False" ColumnWidth="*"   
+                            <DataGrid x:Name="data" ItemsSource="{Binding Patients, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" ColumnWidth="*"   
                                       FontSize="12" IsReadOnly="True"
                                       SelectedItem="{Binding SelectedPatient,UpdateSourceTrigger=PropertyChanged}" >
                                         <DataGrid.Columns >

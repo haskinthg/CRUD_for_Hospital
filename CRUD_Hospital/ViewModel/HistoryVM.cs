@@ -33,13 +33,12 @@ namespace CRUD_Hospital.ViewModel
                 var window = new View.AddDisease();
                 Data.MedicalHistoryId = History.MedicalhistoryId;
                 window.Show();
+                window.Closed += Window_Closed;
             }));
 
-        private RelayCommand updateCommand;
-        public RelayCommand UpdateCommand => updateCommand ??
-            (updateCommand = new RelayCommand(obj =>
-            {
-                UpdateTable();
-            }));
+        private void Window_Closed(object? sender, EventArgs e)
+        {
+            UpdateTable();
+        }
     }
 }

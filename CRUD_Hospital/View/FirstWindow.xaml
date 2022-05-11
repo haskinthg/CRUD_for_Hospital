@@ -16,39 +16,57 @@
     </Window.Style>
     <Grid>
         <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <GroupBox Header="Выберите больницу" Margin="20"  Width="310">
-                    <ComboBox  SelectedValue="{Binding SelectedHospital,UpdateSourceTrigger=PropertyChanged}" 
-                          ItemsSource="{Binding Hospitals}" DisplayMemberPath="HName" >
-                        <d:Interaction.Triggers>
-                            <d:EventTrigger EventName="SelectionChanged">
-                                <d:InvokeCommandAction Command="{Binding SelectedCommand}" 
-                                                   CommandParameter="{Binding SelectedHospital}"/>
-                            </d:EventTrigger>
-                        </d:Interaction.Triggers>
-                    </ComboBox>
-                </GroupBox>
-                <Button Height="40" Width="80" 
-                        Background="{DynamicResource {x:Static adonisUi:Brushes.AccentHighlightBrush}}">
-                    Добавить
-                </Button>
-            </StackPanel>
-            <GroupBox Header="Информация о выбранной больнице" Margin="20,0" 
-                      >
-                <DataGrid FontSize="12" ItemsSource="{Binding sHospital}"
+
+            <GroupBox Margin="20,20,20,0">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0,0,200,0">Выберите больницу</TextBlock>
+                        <Button Height="30" Width="80" 
+                        Background="{DynamicResource {x:Static adonisUi:Brushes.AccentHighlightBrush}}"
+                                Command="{Binding OpenAddHospitalCommand}">
+                            Добавить
+                        </Button>
+                    </StackPanel>
+                </GroupBox.Header>
+                <DataGrid FontSize="12" ItemsSource="{Binding Hospitals,UpdateSourceTrigger=Default}" 
+                          SelectedItem="{Binding SelectedHospital, UpdateSourceTrigger=PropertyChanged}"
                           IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="*">
                     <DataGrid.Columns >
-                        <DataGridTextColumn Header="Название" Binding="{Binding Path=HName}"/>
-                        <DataGridTextColumn Header="Город" Binding="{Binding Path=HCity}"/>
-                        <DataGridTextColumn Header="Адрес" Binding="{Binding Path=HAddress}"/>
+                        <DataGridTextColumn Header="Название" Binding="{Binding Path=HName}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Город" Binding="{Binding Path=HCity}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Адрес" Binding="{Binding Path=HAddress}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                     </DataGrid.Columns >
                 </DataGrid>
             </GroupBox>
-            <Button Width="90" Height="30"  Margin="10"
+            <StackPanel Margin="130,10,0,0" Orientation="Horizontal">
+                <Button Width="90" Height="30"  Margin="10"
                     Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
                     Command="{Binding OpenMainWindowCommand}" CommandParameter="{Binding SelectedHospital}">
                 Открыть
             </Button>
+                <Button Content="Удалить" Width="70" Height="30" Command="{Binding RemoveHospital}" 
+                        CommandParameter="{Binding SelectedHospital}"
+                        Background="{DynamicResource {x:Static adonisUi:Brushes.ErrorBrush}}">
+                </Button>
+        </StackPanel>
         </StackPanel>
     </Grid>
 </adonisControls:AdonisWindow>
