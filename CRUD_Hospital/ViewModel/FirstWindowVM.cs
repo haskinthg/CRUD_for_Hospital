@@ -18,7 +18,9 @@ namespace CRUD_Hospital.ViewModel
         public Hospital SelectedHospital
         {
             get { return _selectedHospital; }
-            set { _selectedHospital = value; OnPropertyChanged("SelectedHospital"); }
+            set { _selectedHospital = value;
+                Data.HospitalId = value.HospitalId;
+                OnPropertyChanged("SelectedHospital"); }
         }
         private void UpdateHospotals()
         {
@@ -40,7 +42,6 @@ namespace CRUD_Hospital.ViewModel
             {
                 var main = new View.MainWindow();
                 main.Show();
-                Data.HospitalId = _selectedHospital.HospitalId;
                 CloseAction();
             },
             obj=>SelectedHospital!=null));

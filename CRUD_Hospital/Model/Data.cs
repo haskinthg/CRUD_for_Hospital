@@ -53,13 +53,14 @@ namespace CRUD_Hospital.Model
             return m;
         }
 
-        public static ObservableCollection<Patient> GetAllPatients(int HID)
+        public static ObservableCollection<Patient> GetAllPatients()
         {
             var all = new ObservableCollection<Patient>();
             using (var db = new dbhospitalsContext())
             {
-                Npgsql.NpgsqlParameter HId = new("@HId", HID);
-                all = new ObservableCollection<Patient>(db.Patients.FromSqlRaw("select * from patients where hospital_id = @HId", HId));
+                Npgsql.NpgsqlParameter HosId = new("@HospitalId", HospitalId);
+                
+                all = new ObservableCollection<Patient>(db.Patients.FromSqlRaw("select * from patients where hospital_id = @HospitalId", HosId));
             }
             return all;
         }
@@ -69,7 +70,8 @@ namespace CRUD_Hospital.Model
             var all = new ObservableCollection<Department>();
             using (var db = new dbhospitalsContext())
             {
-                all = new ObservableCollection<Department>(db.Departments);
+                Npgsql.NpgsqlParameter HosId = new("@HospitalId",HospitalId);
+                all = new ObservableCollection<Department>(db.Departments.FromSqlRaw("select * from departments where hospital_id = @HospitalId", HosId));
             }
             return all;
         }

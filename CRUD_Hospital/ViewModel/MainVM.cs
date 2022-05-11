@@ -12,7 +12,7 @@ namespace CRUD_Hospital.ViewModel
     {
         public ObservableCollection<Patient> Patients { get; set; } = new ObservableCollection<Patient>();
         public ObservableCollection<Doctor> Doctors { get; set; } = new ObservableCollection<Doctor>();
-        public ObservableCollection<Department> Departments { get; } = new ObservableCollection<Department>();
+        public ObservableCollection<Department> Departments { get; } = Data.GetAllDepartments();
         public MainVM()
         {
            UpdatePatients();
@@ -21,7 +21,7 @@ namespace CRUD_Hospital.ViewModel
         public void UpdatePatients()
         {
             Patients.Clear();
-            foreach (var item in Data.GetAllPatients(Data.HospitalId))
+            foreach (var item in Data.GetAllPatients())
                 Patients.Add(item);
         }
 
