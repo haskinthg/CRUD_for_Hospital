@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -11,6 +12,22 @@ namespace CRUD_Hospital.Model
         public static int PatientId { get; set; }
         public static int DoctorId { get; set; }
         public static int MedicalHistoryId { get; set; }
+
+        public static ObservableCollection<Patient> SearchInPatient(string filter)
+        {
+            var patients = new ObservableCollection<Patient>();
+            using(var db = new dbhospitalsContext())
+            {
+                Npgsql.NpgsqlParameter f = new("filter", filter);
+                
+                patients = new ObservableCollection<Patient>(
+                    db.Patients.FromSqlRaw($"select * from patients " +
+                    $"where p_firstname like '%filter%' or " +
+                    $"p_secondname like '%filter%' or " +
+                    $"p_lastname like '%filter%'", f));
+            }
+            return patients;
+        }
 
         public static Doctor FindDoctor(int id)
         {

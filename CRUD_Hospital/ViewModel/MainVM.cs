@@ -18,6 +18,31 @@ namespace CRUD_Hospital.ViewModel
            UpdatePatients();
         }
 
+        private string filterPatient;
+        public string FilterPatient
+        {
+            get { return filterPatient; }
+            set { filterPatient = value; OnPropertyChanged("FilterPatient"); }
+        }
+
+        private RelayCommand searchInPatients;
+        public RelayCommand SearchInPatients => searchInPatients ??
+            (searchInPatients = new RelayCommand(obj =>
+            {
+                Patients.Clear();
+                foreach (var a in Data.SearchInPatient(FilterPatient))
+                    Patients.Add(a);
+            },
+                obj => FilterPatient != null));
+
+
+        private RelayCommand resetTablePatient;
+        public RelayCommand ResetTablePatient => resetTablePatient ??
+            (resetTablePatient = new RelayCommand(obj =>
+            {
+                UpdatePatients();
+            }));
+
         public void UpdatePatients()
         {
             Patients.Clear();

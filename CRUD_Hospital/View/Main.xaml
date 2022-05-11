@@ -38,12 +38,25 @@
                                             <TextBox Width="150" Text="{Binding Path=addPatient.PPhone, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,425,0" />
                                             <Button Content="Добавить" Command="{Binding AddPatientCommand}"
                                                 CommandParameter="{Binding addPatient}"
-                                                Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
-                                                />
+                                                Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </GroupBox>
                             </Expander>
+                        <Expander IsExpanded="True" Header="Поиск">
+                            <GroupBox>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock Margin="30,0,50,0" Text="Поле для текста"/>
+                                    <TextBox Width="400" Text="{Binding FilterPatient}"/>
+                                    <Button Margin="20,0,0,0" Content="Поиск"
+                                        Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
+                                        Command="{Binding SearchInPatients}"/>
+                                    <Button Margin="20,0,0,0" Content="Сброс"
+                                        Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
+                                        Command="{Binding ResetTablePatient}"/>
+                                </StackPanel>
+                            </GroupBox>
+                        </Expander>
                         <GroupBox Header="Пациенты" FontSize="12" Margin="5"  >
                             <DataGrid x:Name="data" ItemsSource="{Binding Patients, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" ColumnWidth="*"   
                                       FontSize="12" IsReadOnly="True"
