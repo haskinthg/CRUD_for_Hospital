@@ -31,6 +31,23 @@ namespace CRUD_Hospital.Model
             return patients;
         }
 
+        public static ObservableCollection<Doctor> SearchInDoctor(string filter)
+        {
+            var doctors = new ObservableCollection<Doctor>();
+            using(var db = new dbhospitalsContext())
+            {
+                Npgsql.NpgsqlParameter f = new("@filter", filter);
+                doctors = new ObservableCollection<Doctor>(
+                    db.Doctors.FromSqlRaw($"select * from doctors" +
+                    $"where d_firstname like concat('%',@filter,'%') or " +
+                    $"d_secondname like concat('%', @filter, '%') or " +
+                    $"p_lastname like concat('%',@filter,'%') or " +
+                    $"d_jobtitle like concat('%',@filter,'%') or " +
+                    $"cast(d_phone as text) like concat('%',@filter,'%')", f));
+            }
+            return doctors;
+        }
+
         public static Doctor FindDoctor(int id)
         {
             var doctor = new Doctor();

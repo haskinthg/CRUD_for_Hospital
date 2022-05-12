@@ -25,6 +25,13 @@ namespace CRUD_Hospital.ViewModel
             set { filterPatient = value; OnPropertyChanged("FilterPatient"); }
         }
 
+        private string filterDoctor;
+        public string FilterDoctor
+        {
+            get { return filterDoctor; }
+            set { filterDoctor = value; OnPropertyChanged("FilterDoctor"); }
+        }
+
         private RelayCommand searchInPatients;
         public RelayCommand SearchInPatients => searchInPatients ??
             (searchInPatients = new RelayCommand(obj =>
@@ -40,6 +47,23 @@ namespace CRUD_Hospital.ViewModel
             (resetTablePatient = new RelayCommand(obj =>
             {
                 UpdatePatients();
+            }));
+
+        private RelayCommand searchInDoctors;
+        public RelayCommand SearchInDoctors => searchInDoctors ??
+            (searchInDoctors = new RelayCommand(obj =>
+            {
+                Doctors.Clear();
+                foreach (var a in Data.SearchInDoctor(FilterPatient))
+                    Doctors.Add(a);
+            }));
+
+
+        private RelayCommand resetTableDoctor;
+        public RelayCommand ResetTableDoctor => resetTableDoctor ??
+            (resetTableDoctor = new RelayCommand(obj =>
+            {
+                UpdateDoctors();
             }));
 
         public void UpdatePatients()
