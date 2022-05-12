@@ -18,13 +18,15 @@ namespace CRUD_Hospital.Model
             var patients = new ObservableCollection<Patient>();
             using(var db = new dbhospitalsContext())
             {
-                Npgsql.NpgsqlParameter f = new("filter", filter);
-                
-                patients = new ObservableCollection<Patient>(
-                    db.Patients.FromSqlRaw($"select * from patients " +
-                    $"where p_firstname like '%filter%' or " +
-                    $"p_secondname like '%filter%' or " +
-                    $"p_lastname like '%filter%'", f));
+
+                    Npgsql.NpgsqlParameter f = new("@filter", filter);
+
+                    patients = new ObservableCollection<Patient>(
+                        db.Patients.FromSqlRaw($"select * from patients " +
+                        $"where p_firstname like concat('%',@filter,'%') or " +
+                        $"p_secondname like concat('%',@filter,'%') or " +
+                        $"cast(p_phone as text) like concat('%',@filter,'%') or " +
+                        $"p_lastname like concat('%',@filter,'%')", f));
             }
             return patients;
         }

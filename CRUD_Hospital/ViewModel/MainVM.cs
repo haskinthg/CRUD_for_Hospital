@@ -32,8 +32,7 @@ namespace CRUD_Hospital.ViewModel
                 Patients.Clear();
                 foreach (var a in Data.SearchInPatient(FilterPatient))
                     Patients.Add(a);
-            },
-                obj => FilterPatient != null));
+            }));
 
 
         private RelayCommand resetTablePatient;
