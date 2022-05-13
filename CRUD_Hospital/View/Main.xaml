@@ -107,7 +107,7 @@
                 <Grid >
                     <StackPanel>
                         <GroupBox Header="Выбор отделения" Margin="5">
-                            <ComboBox SelectedItem="{Binding SelectedDepartment,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Departments}"
+                            <ComboBox SelectedItem="{Binding SelectedDepartment,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Departments, UpdateSourceTrigger=PropertyChanged}"
                                       DisplayMemberPath="DName" SelectedIndex="0" >
                                 <d:Interaction.Triggers>
                                     <d:EventTrigger EventName="SelectionChanged">
@@ -118,21 +118,25 @@
                         </GroupBox>
                         <Expander Header="Добавить врача" Margin="5" >
                             <GroupBox Header="Информация о враче" FontSize="12" Margin="0">
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Vertical" DataContext="{Binding AddDoctor, UpdateSourceTrigger=PropertyChanged}">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                                         <TextBlock Text="Фамилия" Margin="0,0,20,0"/>
-                                        <TextBox Width="150" Margin="0,0,40,0" />
+                                        <TextBox Text="{Binding Path=DLastname, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="0,0,40,0" />
                                         <TextBlock Text="Имя" Margin="0,0,20,0"/>
-                                        <TextBox Width="150" Margin="0,0,40,0" />
+                                        <TextBox Text="{Binding Path=DFisrtname, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="0,0,40,0" />
                                         <TextBlock Text="Отчество" Margin="0,0,20,0"/>
-                                        <TextBox Width="150" />
+                                        <TextBox Text="{Binding Path=DSecondname, UpdateSourceTrigger=PropertyChanged}" Width="150" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center">
                                         <TextBlock Text="Телефон" Margin="0,0,23,0"/>
-                                        <TextBox Width="150" Margin="0,0,40,0" />
+                                        <TextBox Text="{Binding Path=DPhone , UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="0,0,40,0" />
                                         <TextBlock Text="Должность" Margin="0,0,20,0"/>
-                                        <TextBox Width="150" Margin="0,0,153,0" />
-                                        <Button Content="Добавить" Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"/>
+                                        <TextBox Text="{Binding Path=DJobtitle, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="0,0,153,0" />
+                                        <Button Content="Добавить" Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
+                                                Command="{Binding RelativeSource={RelativeSource FindAncestor,
+                                                         AncestorType={x:Type Window}}, Path=DataContext.AddDoctorCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,
+                                                         AncestorType={x:Type Window}}, Path=DataContext.AddDoctor}"/>
                                     </StackPanel>
                                 </StackPanel>
                             </GroupBox>

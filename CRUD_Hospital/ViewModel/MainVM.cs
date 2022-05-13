@@ -47,6 +47,7 @@ namespace CRUD_Hospital.ViewModel
             (resetTablePatient = new RelayCommand(obj =>
             {
                 UpdatePatients();
+                FilterPatient = "";
             }));
 
         private RelayCommand searchInDoctors;
@@ -64,6 +65,7 @@ namespace CRUD_Hospital.ViewModel
             (resetTableDoctor = new RelayCommand(obj =>
             {
                 UpdateDoctors();
+                FilterDoctor = "";
             }));
 
         public void UpdatePatients()
@@ -104,6 +106,7 @@ namespace CRUD_Hospital.ViewModel
             set
             {
                 _selectedDepartment = value;
+                if(value!=null) Data.DepartmentId = value.DepartmentId;
                 OnPropertyChanged("SelectedDepartment");
             }
         }
@@ -129,6 +132,14 @@ namespace CRUD_Hospital.ViewModel
                 OnPropertyChanged("addPatient");
             }
         }
+
+        private Doctor addDoctor = new Doctor();
+        public Doctor AddDoctor
+        {
+            get { return addDoctor; }
+            set { addDoctor = value;  OnPropertyChanged("AddDoctor"); }
+        }
+
         private void clearAddPatient()
         {
             AddPatient.PLastname = "";
@@ -203,5 +214,19 @@ namespace CRUD_Hospital.ViewModel
                 var window = new View.History();
                 window.Show();
             }));
+
+
+        private RelayCommand addDoctorCommand;
+        public RelayCommand AddDoctorCommand => addDoctorCommand ??
+            (addDoctorCommand = new RelayCommand(obj =>
+            {
+                Doctor doctor = obj as Doctor;
+                doctor.DepartmentId = Data.DepartmentId;
+                Data.AddToDoctors(doctor);
+                UpdateDoctors();
+
+            },
+                obj =>addDoctor.DFisrtname != null && addDoctor.DSecondname != null &&
+                addDoctor.DJobtitle != null && addDoctor.DLastname != null && addDoctor.DSecondname!=null));
     }
 }
