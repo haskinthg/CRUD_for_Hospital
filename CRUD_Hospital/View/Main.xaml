@@ -27,7 +27,7 @@
                             <GroupBox Header="Информация о пациенте" FontSize="12" Margin="5"
                                       >
                                 <StackPanel Orientation="Vertical">
-                                    <StackPanel DataContext="{Binding addPatient}" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <StackPanel DataContext="{Binding addPatient, UpdateSourceTrigger=PropertyChanged}" Orientation="Horizontal" HorizontalAlignment="Center">
                                         <TextBlock Text="Фамилия" Margin="0,0,20,0"/>
                                         <TextBox Width="150" Text="{Binding PLastname, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,40,0" />
                                         <TextBlock Text="Имя" Margin="0,0,20,0"/>

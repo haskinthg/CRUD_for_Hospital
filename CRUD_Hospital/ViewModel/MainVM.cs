@@ -15,7 +15,7 @@ namespace CRUD_Hospital.ViewModel
         public ObservableCollection<Department> Departments { get; } = Data.GetAllDepartments();
         public MainVM()
         {
-           UpdatePatients();
+            UpdatePatients();
         }
 
         private string filterPatient;
@@ -57,7 +57,8 @@ namespace CRUD_Hospital.ViewModel
                 Doctors.Clear();
                 foreach (var a in Data.SearchInDoctor(FilterPatient))
                     Doctors.Add(a);
-            }));
+            },
+                obj => SelectedDepartment != null));
 
 
         private RelayCommand resetTableDoctor;
@@ -66,7 +67,8 @@ namespace CRUD_Hospital.ViewModel
             {
                 UpdateDoctors();
                 FilterDoctor = "";
-            }));
+            },
+                obj => SelectedDepartment != null));
 
         public void UpdatePatients()
         {
@@ -96,7 +98,7 @@ namespace CRUD_Hospital.ViewModel
             }
         }
 
-        private Department _selectedDepartment = new Department() { HospitalId = Data.HospitalId };
+        private Department _selectedDepartment = new() { HospitalId = Data.HospitalId };
         public Department SelectedDepartment
         {
             get
@@ -106,7 +108,7 @@ namespace CRUD_Hospital.ViewModel
             set
             {
                 _selectedDepartment = value;
-                if(value!=null) Data.DepartmentId = value.DepartmentId;
+                if (value != null) Data.DepartmentId = value.DepartmentId;
                 OnPropertyChanged("SelectedDepartment");
             }
         }
@@ -119,7 +121,7 @@ namespace CRUD_Hospital.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
-        private Patient AddPatient = new Patient { HospitalId = Data.HospitalId };
+        private Patient AddPatient = new() { HospitalId = Data.HospitalId };
         public Patient addPatient
         {
             get
@@ -133,19 +135,19 @@ namespace CRUD_Hospital.ViewModel
             }
         }
 
-        private Doctor addDoctor = new Doctor();
+        private Doctor addDoctor = new();
         public Doctor AddDoctor
         {
             get { return addDoctor; }
-            set { addDoctor = value;  OnPropertyChanged("AddDoctor"); }
+            set { addDoctor = value; OnPropertyChanged("AddDoctor"); }
         }
 
         private void clearAddPatient()
         {
-            AddPatient.PLastname = "";
-            AddPatient.PFirstname = "";
-            AddPatient.PPhone = null;
-            AddPatient.PSecondname = "";
+            addPatient.PLastname = "";
+            addPatient.PFirstname = "";
+            addPatient.PPhone = null;
+            addPatient.PSecondname = "";
         }
 
 
@@ -226,7 +228,7 @@ namespace CRUD_Hospital.ViewModel
                 UpdateDoctors();
 
             },
-                obj =>addDoctor.DFisrtname != null && addDoctor.DSecondname != null &&
-                addDoctor.DJobtitle != null && addDoctor.DLastname != null && addDoctor.DSecondname!=null));
+                obj => addDoctor.DFisrtname != null && addDoctor.DSecondname != null &&
+                addDoctor.DJobtitle != null && addDoctor.DLastname != null && addDoctor.DSecondname != null));
     }
 }
