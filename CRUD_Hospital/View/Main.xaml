@@ -49,10 +49,11 @@
                             <GroupBox Margin="5">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <TextBlock Margin="30,0,50,0" Text="Поле для текста"/>
-                                    <TextBox Width="400" Text="{Binding FilterPatient}"/>
+                                    <TextBox Width="400" Text="{Binding FilterPatient, UpdateSourceTrigger=PropertyChanged}"/>
                                     <Button Margin="20,0,0,0" Content="Поиск"
                                         Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
-                                        Command="{Binding SearchInPatients}"/>
+                                        Command="{Binding SearchInPatients}"
+                                            CommandParameter="{Binding FilterPatient}"/>
                                     <Button Margin="20,0,0,0" Content="Сброс"
                                         Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
                                         Command="{Binding ResetTablePatient}"/>
@@ -95,9 +96,12 @@
                             </DataGrid>
                         </GroupBox>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Margin="0,0,265,0" Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
+                                    Command="{Binding ReturnToHospitals}">Вернуться к больницам</Button>
                             <TextBlock FontSize="12" Text="Выберите строку в таблице и нажмите кнопку" Margin="0,0,20,0"/>
                             <Button Width="90"  Content="Удалить" Command="{Binding RemovePatientCommand}" CommandParameter="{Binding SelectedPatient}"
                                 Background="{DynamicResource {x:Static adonisUi:Brushes.ErrorBrush}}"/>
+                            
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -145,10 +149,11 @@
                             <GroupBox Margin="5">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <TextBlock Margin="30,0,50,0" Text="Поле для текста"/>
-                                    <TextBox Width="400" Text="{Binding FilterDoctor}"/>
+                                    <TextBox Width="400" Text="{Binding FilterDoctor, UpdateSourceTrigger=PropertyChanged}"/>
                                     <Button Margin="20,0,0,0" Content="Поиск"
                                         Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
-                                        Command="{Binding SearchInDoctors}"/>
+                                        Command="{Binding SearchInDoctors}"
+                                            CommandParameter="{Binding FilterDoctor}"/>
                                     <Button Margin="20,0,0,0" Content="Сброс"
                                         Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
                                         Command="{Binding ResetTableDoctor}"/>

@@ -1,6 +1,7 @@
 ﻿using CRUD_Hospital.ViewModel;
 
 using AdonisUI.Controls;
+using System;
 
 namespace CRUD_Hospital.View
 {
@@ -9,7 +10,10 @@ namespace CRUD_Hospital.View
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainVM();
+            var vm = new MainVM();
+            DataContext = vm;
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(this.Close);
 
         }
     }

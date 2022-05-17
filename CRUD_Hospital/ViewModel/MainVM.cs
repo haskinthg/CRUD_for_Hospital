@@ -1,5 +1,6 @@
 ﻿using CRUD_Hospital.Command;
 using CRUD_Hospital.Model;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -18,14 +19,14 @@ namespace CRUD_Hospital.ViewModel
             UpdatePatients();
         }
 
-        private string filterPatient;
+        private string filterPatient="";
         public string FilterPatient
         {
             get { return filterPatient; }
             set { filterPatient = value; OnPropertyChanged("FilterPatient"); }
         }
 
-        private string filterDoctor;
+        private string filterDoctor="";
         public string FilterDoctor
         {
             get { return filterDoctor; }
@@ -39,7 +40,8 @@ namespace CRUD_Hospital.ViewModel
                 Patients.Clear();
                 foreach (var a in Data.SearchInPatient(FilterPatient))
                     Patients.Add(a);
-            }));
+            },
+            obj => FilterPatient!=""));
 
 
         private RelayCommand resetTablePatient;
@@ -55,10 +57,10 @@ namespace CRUD_Hospital.ViewModel
             (searchInDoctors = new RelayCommand(obj =>
             {
                 Doctors.Clear();
-                foreach (var a in Data.SearchInDoctor(FilterPatient))
+                foreach (var a in Data.SearchInDoctor(FilterDoctor))
                     Doctors.Add(a);
             },
-                obj => SelectedDepartment != null));
+                obj => SelectedDepartment != null && FilterDoctor!=""));
 
 
         private RelayCommand resetTableDoctor;
@@ -230,5 +232,16 @@ namespace CRUD_Hospital.ViewModel
             },
                 obj => addDoctor.DFisrtname != null && addDoctor.DSecondname != null &&
                 addDoctor.DJobtitle != null && addDoctor.DLastname != null && addDoctor.DSecondname != null));
+        
+        private RelayCommand returnToHospitals;
+        public RelayCommand ReturnToHospitals => returnToHospitals ??
+            (returnToHospitals = new RelayCommand(obj =>
+            {
+                var window = new View.FirstWindow();
+                window.Show();
+                CloseAction();
+            }));
+
+        public Action CloseAction { get; set; }
     }
 }
