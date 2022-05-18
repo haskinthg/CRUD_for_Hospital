@@ -1,12 +1,9 @@
-﻿using AdonisUI.Controls;
-using CRUD_Hospital.Command;
+﻿using CRUD_Hospital.Command;
 using CRUD_Hospital.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Windows.Input;
 
 namespace CRUD_Hospital.ViewModel
 {

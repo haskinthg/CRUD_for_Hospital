@@ -1,7 +1,6 @@
 ﻿using AdonisUI.Controls;
 using CRUD_Hospital.ViewModel;
 using System;
-using System.Windows;
 
 namespace CRUD_Hospital.View
 {
