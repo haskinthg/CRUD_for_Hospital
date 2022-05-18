@@ -13,6 +13,8 @@ namespace CRUD_Hospital.Model
         public static int DoctorId { get; set; }
         public static int MedicalHistoryId { get; set; }
 
+        public static int TreatmentId { get; set; }
+
         public static ObservableCollection<Patient> SearchInPatient(string filter)
         {
             var patients = new ObservableCollection<Patient>();
@@ -66,6 +68,15 @@ namespace CRUD_Hospital.Model
                 p = db.Patients.FirstOrDefault(i => i.PatientId == id);
             }
             return p;
+        }
+        public static Treatment FindTreatment(int id)
+        {
+            var t = new Treatment();
+            using(var db = new dbhospitalsContext())
+            {
+                t= db.Treatments.FirstOrDefault(i => i.TreatmentId == id);
+            }
+            return t;
         }
 
         public static Medicalhistory FindHistory(int id)
@@ -142,6 +153,28 @@ namespace CRUD_Hospital.Model
             return all;
         }
 
+        public static ObservableCollection<Service> GetAllServices(int ID)
+        {
+            var all = new ObservableCollection<Service>();
+            using(var db = new dbhospitalsContext())
+            {
+                Npgsql.NpgsqlParameter id = new("@id", ID);
+                all = new ObservableCollection<Service>(db.Services.FromSqlRaw("select * from services where treatment_id = @id", id));
+            }
+            return all;
+        }
+
+        public static ObservableCollection<Medication> GetAllMedications(int ID)
+        {
+            var all = new ObservableCollection<Medication>();
+            using (var db = new dbhospitalsContext())
+            {
+                Npgsql.NpgsqlParameter id = new("@id", ID);
+                all = new ObservableCollection<Medication>(db.Medications.FromSqlRaw("select * from medications where treatment_id = @id", id));
+            }
+            return all;
+        }
+
         public static ObservableCollection<Visit> GetVisitsOfPatient(int id)
         {
             var all = new ObservableCollection<Visit>();
@@ -206,7 +239,7 @@ namespace CRUD_Hospital.Model
             {
                 if (!db.Hospitals.Contains(h))
                 {
-                    db.Hospitals.Add(h);
+                        db.Hospitals.Add(h);
                     db.SaveChanges();
                 }
             }
@@ -216,18 +249,66 @@ namespace CRUD_Hospital.Model
         {
             using(var db = new dbhospitalsContext())
             {
-                if(!db.Diseases.Contains(d))
+                if (!db.Diseases.Contains(d))
+                {
                     db.Diseases.Add(d);
-                db.SaveChanges();
+                    db.SaveChanges();
+                }
             }
         }
 
+        public static int AddToTreatments(Treatment t)
+        {
+            using(var db =new dbhospitalsContext())
+            {
+                if (!db.Treatments.Any(h=>h.VisitId==t.VisitId))
+                {
+                    db.Treatments.Add(t);
+                    db.SaveChanges();
+                }
+                else t = db.Treatments.FirstOrDefault(h=>h.VisitId==t.VisitId);
+            }
+            return t.TreatmentId;
+        }
+
+        public static void AddToMedications(Medication m)
+        {
+            using (var db = new dbhospitalsContext())
+            {
+                if (!db.Medications.Contains(m))
+                {
+                    db.Medications.Add(m);
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public static void AddToServices(Service s)
+        {
+            using (var db = new dbhospitalsContext())
+            {
+                if (!db.Services.Contains(s))
+                {
+                    db.Services.Add(s);
+                    db.SaveChanges();
+                }
+            }
+        }
 
         public static void DeleteFromPatients(Patient p)
         {
             using (var db = new dbhospitalsContext())
             {
                 db.Patients.Remove(p);
+                db.SaveChanges();
+            }
+        }
+
+        public static void DeleteFromDoctors(Doctor d)
+        {
+            using (var db = new dbhospitalsContext())
+            {
+                db.Doctors.Remove(d);
                 db.SaveChanges();
             }
         }
@@ -241,6 +322,42 @@ namespace CRUD_Hospital.Model
             }
         }
 
+        public static void DeleteFromVisits(Visit v)
+        {
+            using (var db = new dbhospitalsContext())
+            {
+                db.Visits.Remove(v);
+                db.SaveChanges();
+            }
+        }
+
+        public static void DeleteFromDiseases(Disease d)
+        {
+            using(var db = new dbhospitalsContext())
+            {
+                db.Diseases.Remove(d);
+                db.SaveChanges();
+            }
+        }
+
+        public static void DeleteFromMedications(Medication m)
+        {
+            using(var db =new dbhospitalsContext())
+            {
+                db.Medications.Remove(m);
+                db.SaveChanges();
+            }
+        }
+
+        public static void DeleteFromServices(Service s)
+        {
+            using(var db = new dbhospitalsContext())
+            {
+                db.Services.Remove(s);
+                db.SaveChanges();
+            }
+        }
+
         public static void UpdatePatient(Patient oldp, string First, string Second, string Last, long Phone)
         {
             using (var db = new dbhospitalsContext())
@@ -250,6 +367,17 @@ namespace CRUD_Hospital.Model
                 searchPatient.PSecondname = Second;
                 searchPatient.PLastname = Last;
                 searchPatient.PPhone = Phone;
+                db.SaveChanges();
+            }
+        }
+
+        public static void UpdateTreatment(Treatment old, short days)
+        {
+            using(var db = new dbhospitalsContext())
+            {
+                var search = new Treatment();
+                search = db.Treatments.FirstOrDefault(u => u.TreatmentId==old.TreatmentId);
+                search.Countdays = days;
                 db.SaveChanges();
             }
         }

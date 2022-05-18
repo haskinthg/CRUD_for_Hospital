@@ -1,0 +1,116 @@
+﻿<adonisControls:AdonisWindow x:Class="CRUD_Hospital.View.TreatmentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+        xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+        xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+        xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
+        xmlns:d="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        mc:Ignorable="d"
+        Title="Лечение" Height="400" Width="600" IconVisibility="Collapsed" ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewmodel:TreatmentWindowVM/>
+    </Window.DataContext>
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
+    </Window.Style>
+    <Grid>
+        <GroupBox Margin="10" Header="Данные о лечении">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <DockPanel>
+                        <TextBlock Text="Количество дней" Margin="5,5,10,5"/>
+                        <TextBox Text="{Binding Days, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+                    </DockPanel>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <GroupBox Margin="5" Grid.Column="0">
+                            <GroupBox.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="0,0,150,0" Text="Услуги"/>
+                                    <Button  Content="Добавить" Background="{DynamicResource {x:Static adonisUi:Brushes.AccentHighlightBrush}}"
+                                             Command="{Binding AddServiceCommand}" CommandParameter="{Binding Service}"/>
+                                </StackPanel>
+                            </GroupBox.Header>
+                            <DataGrid ItemsSource="{Binding Services}" SelectedItem="{Binding Service, UpdateSourceTrigger=PropertyChanged}"
+                                      IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="*">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Название" Binding="{Binding Path=SName}"/>
+                                    <DataGridTextColumn Header="Цена" Binding="{Binding Path=SPrice}"/>
+                                    <DataGridTemplateColumn MinWidth="60" MaxWidth="60" Header="Удалить">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate >
+                                                <Button Background="{DynamicResource {x:Static adonisUi:Brushes.ErrorBrush}}"
+                                        Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
+                                        Command="{Binding RelativeSource={RelativeSource 
+                                        FindAncestor,
+                                        AncestorType={x:Type Window}}, Path=DataContext.RemoveServiceCommand}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource 
+                                        FindAncestor,
+                                        AncestorType={x:Type Window}}, Path=DataContext.Service}">
+                                                </Button>
+
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+
+                        <GroupBox Margin="5" Grid.Column="1">
+                            <GroupBox.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="0,0,125,0" Text="Препараты"/>
+                                    <Button  Content="Добавить" Background="{DynamicResource {x:Static adonisUi:Brushes.AccentHighlightBrush}}"
+                                             Command="{Binding AddMedicationCommand}" CommandParameter="{Binding Medication}"/>
+                                </StackPanel>
+                            </GroupBox.Header>
+                            <DataGrid ItemsSource="{Binding Medications}" SelectedItem="{Binding Medication, UpdateSourceTrigger=PropertyChanged}"
+                                      IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="*">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Название" Binding="{Binding Path=MName}"/>
+                                    <DataGridTemplateColumn MinWidth="60" MaxWidth="60" Header="Удалить">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate >
+                                                <Button Background="{DynamicResource {x:Static adonisUi:Brushes.ErrorBrush}}"
+                                        Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
+                                        Command="{Binding RelativeSource={RelativeSource 
+                                        FindAncestor,
+                                        AncestorType={x:Type Window}}, Path=DataContext.RemoveMedicationCommand}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource 
+                                        FindAncestor,
+                                        AncestorType={x:Type Window}}, Path=DataContext.Medication}">
+                                                </Button>
+
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Button Height="30" Width="100" Content="Ок"
+                            Background="{DynamicResource {x:Static adonisUi:Brushes.AccentHighlightBrush}}"
+                            Command="{Binding UpdateTreatment}" CommandParameter="{Binding Days}"/>
+                </Grid>
+
+            </Grid>
+        </GroupBox>
+    </Grid>
+</adonisControls:AdonisWindow>

@@ -1,0 +1,33 @@
+﻿<adonisControls:AdonisWindow x:Class="CRUD_Hospital.View.AddServiceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+        xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+        xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+        xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
+        xmlns:d="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        mc:Ignorable="d"
+        Title="Добавление услуги" Height="200" Width="300" IconVisibility="Collapsed" ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewmodel:AddServiceWindowVM/>
+    </Window.DataContext>
+    <Grid>
+        <StackPanel>
+            <GroupBox  Padding="5" Header="Данные услуги" Margin="10,10,10,0"  >
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10">Название</TextBlock>
+                        <TextBox Text="{Binding Service.SName, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="190"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10">Цена</TextBlock>
+                        <TextBox Text="{Binding Service.SPrice,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="215"/>
+                    </StackPanel>
+                    <Button Margin="5" Height="30" Width="80" Content="Добавить" Background="{DynamicResource {x:Static adonisUi:Brushes.AccentHighlightBrush}}"
+                            Command="{Binding AddService}" CommandParameter="{Binding Service}"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</adonisControls:AdonisWindow>

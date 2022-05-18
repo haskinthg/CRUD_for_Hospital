@@ -16,12 +16,22 @@
     </Window.Style>
     <Grid>
         <StackPanel>
-            <GroupBox Header="Приёмы у врача " Margin="5" >
-                <DataGrid Height="210"  FontSize="12" ItemsSource="{Binding Visits}"
+            <GroupBox Margin="5" Height="260" >
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0,0,300,0">Приёмы у врача</TextBlock>
+                        <Button Height="30"  Width="80" 
+                        Background="{DynamicResource {x:Static adonisUi:Brushes.AccentHighlightBrush}}"
+                                Command="{Binding OpenAddVisitToDoctorCommand}">
+                            Добавить
+                        </Button>
+                    </StackPanel>
+                </GroupBox.Header>
+                <DataGrid Height="210"  FontSize="12" ItemsSource="{Binding Visits}" SelectedItem="{Binding SelectedVisit, UpdateSourceTrigger=PropertyChanged}"
                           IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="*">
                     <DataGrid.Columns >
-                        <DataGridTextColumn Header="Дата" Binding="{Binding VDate}"/>
-                        <DataGridTextColumn Header="Время" Binding="{Binding VTine}"/>
+                        <DataGridTextColumn Width="65" Header="Дата" Binding="{Binding VDate}"/>
+                        <DataGridTextColumn Width="55" Header="Время" Binding="{Binding VTine}"/>
                         <DataGridTemplateColumn Header="Пациент" MinWidth="200">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -30,6 +40,33 @@
                                             <Run Text="{Binding Patient.PSecondname}"/>
                                             <Run Text="{Binding Patient.PLastname}"/>
                                     </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn MinWidth="80" MaxWidth="80" Header="Лечение">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Background="{DynamicResource {x:Static adonisUi:Brushes.AccentBrush}}"
+                                        Content="Открыть" Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
+                                        Command="{Binding RelativeSource={RelativeSource 
+                                        FindAncestor,
+                                        AncestorType={x:Type Window}}, Path=DataContext.TreatmentCommand}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn MinWidth="80" MaxWidth="80" Header="Удалить">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate >
+                                    <Button Background="{DynamicResource {x:Static adonisUi:Brushes.ErrorBrush}}"
+                                        Content="Удалить" Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
+                                        Command="{Binding RelativeSource={RelativeSource 
+                                        FindAncestor,
+                                        AncestorType={x:Type Window}}, Path=DataContext.RemoveCommand}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource 
+                                        FindAncestor,
+                                        AncestorType={x:Type Window}}, Path=DataContext.SelectedVisit}">
+                                    </Button>
+
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

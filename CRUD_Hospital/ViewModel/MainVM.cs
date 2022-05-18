@@ -174,6 +174,16 @@ namespace CRUD_Hospital.ViewModel
                     },
                     (obj) => SelectedPatient != null));
 
+        private RelayCommand removeDoctorCommand;
+        public RelayCommand RemoveDoctorCommand => removeDoctorCommand ??
+            (removeDoctorCommand = new RelayCommand(obj =>
+            {
+                Doctor doctor = obj as Doctor;
+                Data.DeleteFromDoctors(doctor);
+                UpdateDoctors();
+            },
+                obj=>SelectedDoctor != null));
+
         private RelayCommand selectedCommand;
         public RelayCommand SelectedCommand => selectedCommand ??
             (selectedCommand = new RelayCommand(obj =>

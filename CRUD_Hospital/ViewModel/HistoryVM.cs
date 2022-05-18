@@ -40,5 +40,22 @@ namespace CRUD_Hospital.ViewModel
         {
             UpdateTable();
         }
+
+        private Disease selectedDisease;
+        public Disease SelectedDisease
+        {
+            get { return selectedDisease; }
+            set { selectedDisease = value; OnPropertyChanged("SelectedDisease"); }
+        }
+
+        private RelayCommand removeCommand;
+        public RelayCommand RemoveCommand => removeCommand ??
+                    (removeCommand = new RelayCommand(obj =>
+                    {
+                        var v = obj as Disease;
+                        Data.DeleteFromDiseases(v);
+                        UpdateTable();
+                    },
+                    (obj) => SelectedDisease != null));
     }
 }

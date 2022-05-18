@@ -16,5 +16,6 @@ namespace CRUD_Hospital.View
                 vm.CloseAction = new Action(this.Close);
 
         }
+
     }
 }

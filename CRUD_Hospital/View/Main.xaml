@@ -8,8 +8,8 @@
                                xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
                                xmlns:d="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
                                mc:Ignorable="d"
-        IconVisibility="Collapsed" Name="window"
-        Title="Информационная система больницы" MinHeight="200" MinWidth="800" Height="600" Width="800">
+        IconVisibility="Collapsed" Name="window" 
+        Title="Информационная система больницы" MinHeight="600" MinWidth="800" Height="600" Width="800">
     <Window.DataContext>
         <viewmodel:MainVM/>
     </Window.DataContext>
@@ -21,49 +21,57 @@
         <TabControl>
             <TabItem Header="Пациенты">
                 <Grid>
-                    
-                    <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
-                        <Expander Header="Добавить пациента" IsExpanded="False">
-                            <GroupBox Header="Информация о пациенте" FontSize="12" Margin="5"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition  Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <StackPanel Orientation="Vertical">
+                            <Expander Margin="5" Header="Добавить пациента" IsExpanded="False">
+                                <GroupBox Header="Информация о пациенте" FontSize="12" Margin="5"
                                       >
-                                <StackPanel Orientation="Vertical">
-                                    <StackPanel DataContext="{Binding addPatient, UpdateSourceTrigger=PropertyChanged}" Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <TextBlock Text="Фамилия" Margin="0,0,20,0"/>
-                                        <TextBox Width="150" Text="{Binding PLastname, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,40,0" />
-                                        <TextBlock Text="Имя" Margin="0,0,20,0"/>
-                                        <TextBox Width="150" Text="{Binding PFirstname, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,40,0" />
-                                        <TextBlock Text="Отчество" Margin="0,0,20,0"/>
-                                        <TextBox Width="150" Text="{Binding PSecondname, UpdateSourceTrigger=PropertyChanged}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal"  Margin="0,10,0,0" HorizontalAlignment="Center">
-                                        <TextBlock Text="Телефон" Margin="0,0,23,0"/>
-                                        <TextBox Width="150" Text="{Binding Path=addPatient.PPhone, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,425,0" />
-                                        <Button Content="Добавить" Command="{Binding AddPatientCommand}"
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel DataContext="{Binding addPatient, UpdateSourceTrigger=PropertyChanged}" Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <TextBlock Text="Фамилия" Margin="0,0,20,0"/>
+                                            <TextBox Width="150" Text="{Binding PLastname, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,40,0" />
+                                            <TextBlock Text="Имя" Margin="0,0,20,0"/>
+                                            <TextBox Width="150" Text="{Binding PFirstname, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,40,0" />
+                                            <TextBlock Text="Отчество" Margin="0,0,20,0"/>
+                                            <TextBox Width="150" Text="{Binding PSecondname, UpdateSourceTrigger=PropertyChanged}" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"  Margin="0,10,0,0" HorizontalAlignment="Center">
+                                            <TextBlock Text="Телефон" Margin="0,0,23,0"/>
+                                            <TextBox Width="150" Text="{Binding Path=addPatient.PPhone, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,425,0" />
+                                            <Button Content="Добавить" Command="{Binding AddPatientCommand}"
                                                 CommandParameter="{Binding addPatient}"
                                                 Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"/>
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
-                            </GroupBox>
-                        </Expander>
-                        <Expander IsExpanded="False" Header="Поиск">
-                            <GroupBox Margin="5">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock Margin="30,0,50,0" Text="Поле для текста"/>
-                                    <TextBox Width="400" Text="{Binding FilterPatient, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <Button Margin="20,0,0,0" Content="Поиск"
+                                </GroupBox>
+                            </Expander>
+                            <Expander Margin="5" IsExpanded="False" Header="Поиск">
+                                <GroupBox Margin="5">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock Margin="30,0,50,0" Text="Поле для текста"/>
+                                        <TextBox Width="400" Text="{Binding FilterPatient, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Button Margin="20,0,0,0" Content="Поиск"
                                         Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
                                         Command="{Binding SearchInPatients}"
                                             CommandParameter="{Binding FilterPatient}"/>
-                                    <Button Margin="20,0,0,0" Content="Сброс"
+                                        <Button Margin="20,0,0,0" Content="Сброс"
                                         Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
                                         Command="{Binding ResetTablePatient}"/>
-                                </StackPanel>
-                            </GroupBox>
-                        </Expander>
-                        <GroupBox Header="Пациенты" FontSize="12" Margin="5"  >
-                            <DataGrid x:Name="data" ItemsSource="{Binding Patients, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" ColumnWidth="*"   
+                                    </StackPanel>
+                                </GroupBox>
+                            </Expander>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <GroupBox  Header="Пациенты" FontSize="12" Margin="5"  >
+                            <DataGrid x:Name="data" ItemsSource="{Binding Patients, UpdateSourceTrigger=PropertyChanged}"
+                                      AutoGenerateColumns="False" ColumnWidth="*"
                                       FontSize="12" IsReadOnly="True"
-                                      VerticalScrollBarVisibility="Visible"
                                       SelectedItem="{Binding SelectedPatient,UpdateSourceTrigger=PropertyChanged}" >
                                 <DataGrid.Columns >
                                     <DataGridTextColumn Header="Имя" Binding="{Binding Path=PFirstname}"/>
@@ -95,76 +103,90 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button Margin="0,0,265,0" Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
-                                    Command="{Binding ReturnToHospitals}">Вернуться к больницам</Button>
-                            <TextBlock FontSize="12" Text="Выберите строку в таблице и нажмите кнопку" Margin="0,0,20,0"/>
-                            <Button Width="90"  Content="Удалить" Command="{Binding RemovePatientCommand}" CommandParameter="{Binding SelectedPatient}"
-                                Background="{DynamicResource {x:Static adonisUi:Brushes.ErrorBrush}}"/>
-                            
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="4*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Height="25"   Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
+                                            Command="{Binding ReturnToHospitals}">Вернуться к больницам</Button>
+                        <StackPanel Margin="10" Grid.Column="1" Orientation="Horizontal"   HorizontalAlignment="Right">
+                            <TextBlock  FontSize="12" Text="Выберите строку в таблице и нажмите кнопку" Margin="0,0,20,0"/>
+                            <Button   Width="90"  Content="Удалить" Command="{Binding RemovePatientCommand}" CommandParameter="{Binding SelectedPatient}"
+                                            Background="{DynamicResource {x:Static adonisUi:Brushes.ErrorBrush}}"/>
                         </StackPanel>
-                    </StackPanel>
+                    </Grid>
                 </Grid>
             </TabItem>
 
             <TabItem Header="Отделения и врачи">
                 <Grid >
-                    <StackPanel>
-                        <GroupBox Header="Выбор отделения" Margin="5">
-                            <ComboBox SelectedItem="{Binding SelectedDepartment,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Departments, UpdateSourceTrigger=PropertyChanged}"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition  Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <StackPanel>
+                                <GroupBox Header="Выбор отделения" Margin="5">
+                                    <ComboBox SelectedItem="{Binding SelectedDepartment,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Departments, UpdateSourceTrigger=PropertyChanged}"
                                       DisplayMemberPath="DName" SelectedIndex="0" >
-                                <d:Interaction.Triggers>
-                                    <d:EventTrigger EventName="SelectionChanged">
-                                        <d:InvokeCommandAction Command="{Binding SelectedCommand}" CommandParameter="{Binding SelectedDepartment}"/>
-                                    </d:EventTrigger>
-                                </d:Interaction.Triggers>
-                            </ComboBox>
-                        </GroupBox>
-                        <Expander Header="Добавить врача" Margin="5" >
-                            <GroupBox Header="Информация о враче" FontSize="12" Margin="0">
-                                <StackPanel Orientation="Vertical" DataContext="{Binding AddDoctor, UpdateSourceTrigger=PropertyChanged}">
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                                        <TextBlock Text="Фамилия" Margin="0,0,20,0"/>
-                                        <TextBox Text="{Binding Path=DLastname, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="0,0,40,0" />
-                                        <TextBlock Text="Имя" Margin="0,0,20,0"/>
-                                        <TextBox Text="{Binding Path=DFisrtname, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="0,0,40,0" />
-                                        <TextBlock Text="Отчество" Margin="0,0,20,0"/>
-                                        <TextBox Text="{Binding Path=DSecondname, UpdateSourceTrigger=PropertyChanged}" Width="150" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center">
-                                        <TextBlock Text="Телефон" Margin="0,0,23,0"/>
-                                        <TextBox Text="{Binding Path=DPhone , UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="0,0,40,0" />
-                                        <TextBlock Text="Должность" Margin="0,0,20,0"/>
-                                        <TextBox Text="{Binding Path=DJobtitle, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="0,0,153,0" />
-                                        <Button Content="Добавить" Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
+                                        <d:Interaction.Triggers>
+                                            <d:EventTrigger EventName="SelectionChanged">
+                                                <d:InvokeCommandAction Command="{Binding SelectedCommand}" CommandParameter="{Binding SelectedDepartment}"/>
+                                            </d:EventTrigger>
+                                        </d:Interaction.Triggers>
+                                    </ComboBox>
+                                </GroupBox>
+                                <Expander Header="Добавить врача" Margin="5" >
+                                    <GroupBox Header="Информация о враче" FontSize="12" Margin="0">
+                                        <StackPanel Orientation="Vertical" DataContext="{Binding AddDoctor, UpdateSourceTrigger=PropertyChanged}">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                                <TextBlock Text="Фамилия" Margin="0,0,20,0"/>
+                                                <TextBox Text="{Binding Path=DLastname, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="0,0,40,0" />
+                                                <TextBlock Text="Имя" Margin="0,0,20,0"/>
+                                                <TextBox Text="{Binding Path=DFisrtname, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="0,0,40,0" />
+                                                <TextBlock Text="Отчество" Margin="0,0,20,0"/>
+                                                <TextBox Text="{Binding Path=DSecondname, UpdateSourceTrigger=PropertyChanged}" Width="150" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center">
+                                                <TextBlock Text="Телефон" Margin="0,0,23,0"/>
+                                                <TextBox Text="{Binding Path=DPhone , UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="0,0,40,0" />
+                                                <TextBlock Text="Должность" Margin="0,0,20,0"/>
+                                                <TextBox Text="{Binding Path=DJobtitle, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="0,0,153,0" />
+                                                <Button Content="Добавить" Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
                                                 Command="{Binding RelativeSource={RelativeSource FindAncestor,
                                                          AncestorType={x:Type Window}}, Path=DataContext.AddDoctorCommand}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,
                                                          AncestorType={x:Type Window}}, Path=DataContext.AddDoctor}"/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </GroupBox>
-                        </Expander>
-                        <Expander IsExpanded="False" Header="Поиск" Margin="5">
-                            <GroupBox Margin="5">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock Margin="30,0,50,0" Text="Поле для текста"/>
-                                    <TextBox Width="400" Text="{Binding FilterDoctor, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <Button Margin="20,0,0,0" Content="Поиск"
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </GroupBox>
+                                </Expander>
+                                <Expander IsExpanded="False" Header="Поиск" Margin="5">
+                                    <GroupBox Margin="5">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <TextBlock Margin="30,0,50,0" Text="Поле для текста"/>
+                                            <TextBox Width="400" Text="{Binding FilterDoctor, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Button Margin="20,0,0,0" Content="Поиск"
                                         Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
                                         Command="{Binding SearchInDoctors}"
                                             CommandParameter="{Binding FilterDoctor}"/>
-                                    <Button Margin="20,0,0,0" Content="Сброс"
+                                            <Button Margin="20,0,0,0" Content="Сброс"
                                         Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
                                         Command="{Binding ResetTableDoctor}"/>
-                                </StackPanel>
-                            </GroupBox>
-                        </Expander>
+                                        </StackPanel>
+                                    </GroupBox>
+                                </Expander>
+                            </StackPanel>
+                        </Grid>
+                    <Grid Grid.Row="1">
                         <GroupBox Header="Врачи" FontSize="12" Margin="5" >
                             <DataGrid ItemsSource="{Binding Doctors}" AutoGenerateColumns="False" ColumnWidth="*"
                                       CanUserAddRows="False" SelectedItem="{Binding SelectedDoctor,UpdateSourceTrigger=PropertyChanged}"
-                                      VerticalScrollBarVisibility="Visible"
-                                      FontSize="12"
+                                      FontSize="12" 
                                       IsReadOnly="True"
                                       >
                                 <DataGrid.Columns >
@@ -173,7 +195,7 @@
                                     <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=DLastname}"/>
                                     <DataGridTextColumn Header="Должность" Binding="{Binding Path=DJobtitle}"/>
                                     <DataGridTextColumn Header="Телефон" Binding="{Binding Path=DPhone}"/>
-                                    <DataGridTemplateColumn Header="Расписание приемов" MinWidth="100">
+                                    <DataGridTemplateColumn Header="Приемы" MinWidth="100">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button Content="Посмотреть"  Command="{Binding RelativeSource={RelativeSource 
@@ -185,10 +207,23 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>
-                    </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="4*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Height="25"   Style="{DynamicResource {x:Static adonisUi:Styles.AccentButton}}"
+                                            Command="{Binding ReturnToHospitals}">Вернуться к больницам</Button>
+                        <StackPanel Margin="10" Grid.Column="1" Orientation="Horizontal"   HorizontalAlignment="Right">
+                            <TextBlock  FontSize="12" Text="Выберите строку в таблице и нажмите кнопку" Margin="0,0,20,0"/>
+                            <Button   Width="90"  Content="Удалить" Command="{Binding RemoveDoctorCommand}" CommandParameter="{Binding SelectedDoctor}"
+                                            Background="{DynamicResource {x:Static adonisUi:Brushes.ErrorBrush}}"/>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
-            </TabItem>
-        </TabControl>
+                </TabItem>
+            </TabControl>
 
     </Grid>
 </adonisControls:AdonisWindow>
