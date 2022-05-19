@@ -145,7 +145,21 @@
 
                     <Grid Grid.Row="0">
                         <StackPanel>
-                                <GroupBox Header="Выбор отделения" Margin="5">
+                                <GroupBox  Margin="5">
+                                <GroupBox.Header>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Margin="5">Выберите отделение</TextBlock>
+                                        <Button Margin="5,0"  HorizontalAlignment="Right" Grid.Column="1" Height="30" Width="80" 
+                                            Background="{DynamicResource {x:Static adonisUi:Brushes.AccentHighlightBrush}}"
+                                            Command="{Binding OpenAddDepartmentCommand}">
+                                            Добавить
+                                        </Button>
+                                    </Grid>
+                                </GroupBox.Header>
                                     <ComboBox SelectedItem="{Binding SelectedDepartment,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Departments, UpdateSourceTrigger=PropertyChanged}"
                                       DisplayMemberPath="DName" SelectedIndex="0" >
                                         <d:Interaction.Triggers>

@@ -1,0 +1,28 @@
+﻿<adonisControls:AdonisWindow x:Class="CRUD_Hospital.View.AddDepartmentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                             xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+                             xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+                             xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
+                             xmlns:d="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                             mc:Ignorable="d"
+        Title="Добавить отделение" Height="170" Width="300" IconVisibility="Collapsed" ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewmodel:AddDepartmentWindowVM/>
+    </Window.DataContext>
+    <Grid>
+        <StackPanel>
+            <GroupBox  Padding="5" Header="Данные отделения" Margin="10"  >
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10">Название</TextBlock>
+                        <TextBox Text="{Binding Department.DName, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="190"/>
+                    </StackPanel>
+                    <Button Margin="10" Height="30" Width="80" Content="Добавить" Background="{DynamicResource {x:Static adonisUi:Brushes.AccentHighlightBrush}}"
+                            Command="{Binding AddDepartment}" CommandParameter="{Binding Department}"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</adonisControls:AdonisWindow>

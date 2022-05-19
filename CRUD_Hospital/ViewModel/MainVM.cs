@@ -86,6 +86,13 @@ namespace CRUD_Hospital.ViewModel
                 Doctors.Add(item);
         }
 
+        public void UpdateDepartments()
+        {
+            Departments.Clear();
+            foreach(var item in Data.GetAllDepartments())
+                Departments.Add(item);
+        }
+
         private Patient _selectedPatient;
         public Patient SelectedPatient
         {
@@ -260,7 +267,7 @@ namespace CRUD_Hospital.ViewModel
                 Data.PatientId = patient.PatientId;
                 var w = new View.ChangePatientWindow();
                 w.Show();
-                w.Closed += W_Closed;
+                w.Closed += WPatient_Closed;
             }, obj=> SelectedPatient!=null));
 
 
@@ -272,13 +279,31 @@ namespace CRUD_Hospital.ViewModel
                 Data.DoctorId = d.DoctorId;
                 var w = new View.ChangeDoctorWindow();
                 w.Show();
-                w.Closed += W_Closed;
+                w.Closed += WDoctor_Closed;
             }, obj => SelectedDoctor != null));
 
-        private void W_Closed(object? sender, EventArgs e)
+        private void WPatient_Closed(object? sender, EventArgs e)
         {
             UpdatePatients();
+        }
+
+        private void WDoctor_Closed(object? sender, EventArgs e)
+        {
             UpdateDoctors();
+        }
+
+        private RelayCommand openAddDepartmentCommand;
+        public RelayCommand OpenAddDepartmentCommand => openAddDepartmentCommand ??
+            (openAddDepartmentCommand = new RelayCommand(obj =>
+           {
+               var win = new View.AddDepartmentWindow();
+               win.Show();
+               win.Closed += WinDepartmentsClosed;
+           }));
+
+        private void WinDepartmentsClosed(object? sender, EventArgs e)
+        {
+            UpdateDepartments();
         }
 
         public Action CloseAction { get; set; }

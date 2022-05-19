@@ -208,6 +208,18 @@ namespace CRUD_Hospital.Model
             }
         }
 
+        public static void AddToDepartments(Department d)
+        {
+            using(var db = new dbhospitalsContext())
+            {
+                if(!db.Departments.Contains(d))
+                {
+                    db.Departments.Add(d);
+                    db.SaveChanges();
+                }
+            }
+        }
+
         public static void AddToVisits(Visit v)
         {
             using (var db = new dbhospitalsContext())
