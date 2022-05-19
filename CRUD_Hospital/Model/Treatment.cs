@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CRUD_Hospital.Model
+namespace CRUD_Hospital
 {
     public partial class Treatment
     {
@@ -13,7 +13,6 @@ namespace CRUD_Hospital.Model
 
         public int TreatmentId { get; set; }
         public short Countdays { get; set; }
-        public int PatientId { get; set; }
         public int VisitId { get; set; }
 
         public virtual Visit Visit { get; set; } = null!;

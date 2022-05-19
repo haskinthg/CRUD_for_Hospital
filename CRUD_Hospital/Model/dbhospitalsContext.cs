@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
-namespace CRUD_Hospital.Model
+namespace CRUD_Hospital
 {
     public partial class dbhospitalsContext : DbContext
     {
@@ -13,6 +11,10 @@ namespace CRUD_Hospital.Model
         {
         }
 
+        public dbhospitalsContext(DbContextOptions<dbhospitalsContext> options)
+            : base(options)
+        {
+        }
 
         public virtual DbSet<Department> Departments { get; set; } = null!;
         public virtual DbSet<Disease> Diseases { get; set; } = null!;
@@ -27,14 +29,10 @@ namespace CRUD_Hospital.Model
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var builder = new ConfigurationBuilder();
-            builder.SetBasePath(Directory.GetCurrentDirectory());
-            builder.AddJsonFile("config.json");
-            var config = builder.Build();
-            string connectionString = config.GetConnectionString("DefaultConnection");
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql(connectionString);
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=dbhospitals;Username=postgres;Password=asmozyuirop2");
             }
         }
 
@@ -203,24 +201,20 @@ namespace CRUD_Hospital.Model
             {
                 entity.ToTable("treatments");
 
-                entity.HasIndex(e => e.PatientId, "treatments_patient_id_key")
+                entity.HasIndex(e => e.VisitId, "treatments_visit_id_key")
                     .IsUnique();
 
                 entity.Property(e => e.TreatmentId).HasColumnName("treatment_id");
 
                 entity.Property(e => e.Countdays).HasColumnName("countdays");
 
-                entity.Property(e => e.PatientId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("patient_id");
-
                 entity.Property(e => e.VisitId)
                     .ValueGeneratedOnAdd()
                     .HasColumnName("visit_id");
 
                 entity.HasOne(d => d.Visit)
-                    .WithMany(p => p.Treatments)
-                    .HasForeignKey(d => d.VisitId)
+                    .WithOne(p => p.Treatment)
+                    .HasForeignKey<Treatment>(d => d.VisitId)
                     .HasConstraintName("treatments_visit_id_fkey");
             });
 
