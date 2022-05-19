@@ -9,8 +9,12 @@ namespace CRUD_Hospital.ViewModel
 {
     internal class FirstWindowVM:INotifyPropertyChanged
     {
-        public ObservableCollection<Hospital> Hospitals { get; set; } = Data.GetAllHospitals();
+        public ObservableCollection<Hospital> Hospitals { get; set; } = new ObservableCollection<Hospital>();
 
+        public FirstWindowVM()
+        {
+            UpdateHospotals();
+        }
         private Hospital _selectedHospital;
         public Hospital SelectedHospital
         {

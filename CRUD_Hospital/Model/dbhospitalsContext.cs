@@ -11,6 +11,7 @@ namespace CRUD_Hospital
     {
         public dbhospitalsContext()
         {
+            Database.EnsureCreated();
         }
 
 
