@@ -77,8 +77,8 @@
                                     <DataGridTextColumn Header="Имя" Binding="{Binding Path=PFirstname}"/>
                                     <DataGridTextColumn Header="Отчество" Binding="{Binding Path=PSecondname}"/>
                                     <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=PLastname}"/>
-                                    <DataGridTextColumn Header="Номер телефона" Binding="{Binding Path=PPhone}"/>
-                                    <DataGridTemplateColumn Header="История болезней">
+                                    <DataGridTextColumn Header="Номер телефона" Binding="{Binding Path=PPhone}" Width="115"/>
+                                    <DataGridTemplateColumn Header="История болезней" Width="115">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button Content="Посмотреть"  Command="{Binding RelativeSource={RelativeSource 
@@ -87,7 +87,7 @@
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Запись на приём">
+                                    <DataGridTemplateColumn Header="Запись на приём" Width="110">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate >
                                                 <Button 
@@ -96,7 +96,22 @@
                                                          FindAncestor,
                                                          AncestorType={x:Type Window}}, Path=DataContext.AddVisitWndowCommand}">
                                                 </Button>
-
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Изменение" Width="75">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate >
+                                                <Button 
+                                                         Content="Изменить" 
+                                                         Background="{DynamicResource {x:Static adonisUi:Brushes.SuccessBrush}}"
+                                                         Command="{Binding RelativeSource={RelativeSource 
+                                                         FindAncestor,
+                                                         AncestorType={x:Type Window}}, Path=DataContext.ChangePatientCommand}"
+                                                    CommandParameter="{Binding RelativeSource={RelativeSource 
+                                                         FindAncestor,
+                                                         AncestorType={x:Type Window}}, Path=DataContext.SelectedPatient}">
+                                                </Button>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -195,12 +210,27 @@
                                     <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=DLastname}"/>
                                     <DataGridTextColumn Header="Должность" Binding="{Binding Path=DJobtitle}"/>
                                     <DataGridTextColumn Header="Телефон" Binding="{Binding Path=DPhone}"/>
-                                    <DataGridTemplateColumn Header="Приемы" MinWidth="100">
+                                    <DataGridTemplateColumn Header="Приемы" MinWidth="90" Width="90">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button Content="Посмотреть"  Command="{Binding RelativeSource={RelativeSource 
                                                          FindAncestor,
                                                          AncestorType={x:Type Window}}, Path=DataContext.ShowVisitsCommand}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Изменение" Width="75">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate >
+                                                <Button 
+                                                         Content="Изменить" 
+                                                         Background="{DynamicResource {x:Static adonisUi:Brushes.SuccessBrush}}"
+                                                         Command="{Binding RelativeSource={RelativeSource 
+                                                         FindAncestor,
+                                                         AncestorType={x:Type Window}}, Path=DataContext.ChangeDoctorCommand}"
+                                                         CommandParameter="{Binding RelativeSource={RelativeSource 
+                                                         FindAncestor,
+                                                         AncestorType={x:Type Window}}, Path=DataContext.SelectedDoctor}"></Button>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>

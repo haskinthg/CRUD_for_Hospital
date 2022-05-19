@@ -252,6 +252,35 @@ namespace CRUD_Hospital.ViewModel
                 CloseAction();
             }));
 
+        private RelayCommand changePatientCommand;
+        public RelayCommand ChangePatientCommand => changePatientCommand ??
+            (changePatientCommand = new RelayCommand(obj =>
+            {
+                var patient = obj as Patient;
+                Data.PatientId = patient.PatientId;
+                var w = new View.ChangePatientWindow();
+                w.Show();
+                w.Closed += W_Closed;
+            }, obj=> SelectedPatient!=null));
+
+
+        private RelayCommand changeDoctorCommand;
+        public RelayCommand ChangeDoctorCommand => changeDoctorCommand ??
+            (changeDoctorCommand = new RelayCommand(obj =>
+            {
+                var d = obj as Doctor;
+                Data.DoctorId = d.DoctorId;
+                var w = new View.ChangeDoctorWindow();
+                w.Show();
+                w.Closed += W_Closed;
+            }, obj => SelectedDoctor != null));
+
+        private void W_Closed(object? sender, EventArgs e)
+        {
+            UpdatePatients();
+            UpdateDoctors();
+        }
+
         public Action CloseAction { get; set; }
     }
 }

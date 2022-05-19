@@ -12,7 +12,6 @@ namespace CRUD_Hospital.Model
         public static int PatientId { get; set; }
         public static int DoctorId { get; set; }
         public static int MedicalHistoryId { get; set; }
-
         public static int TreatmentId { get; set; }
 
         public static ObservableCollection<Patient> SearchInPatient(string filter)
@@ -362,11 +361,25 @@ namespace CRUD_Hospital.Model
         {
             using (var db = new dbhospitalsContext())
             {
-                var searchPatient = db.Patients.Find(oldp);
+                var searchPatient = db.Patients.FirstOrDefault(p=>p.PatientId==oldp.PatientId);
                 searchPatient.PFirstname = First;
                 searchPatient.PSecondname = Second;
                 searchPatient.PLastname = Last;
                 searchPatient.PPhone = Phone;
+                db.SaveChanges();
+            }
+        }
+
+        public static void UpdateDoctor(Doctor old, string First, string Second, string Last, long Phone, string job)
+        {
+            using(var db =new dbhospitalsContext())
+            {
+                var d = db.Doctors.FirstOrDefault(p=>p.DoctorId==old.DoctorId);
+                d.DFisrtname = First;
+                d.DSecondname = Second;
+                d.DLastname = Last;
+                d.DPhone = Phone;
+                d.DJobtitle = job;
                 db.SaveChanges();
             }
         }

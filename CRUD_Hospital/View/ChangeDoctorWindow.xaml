@@ -1,0 +1,45 @@
+﻿<adonisControls:AdonisWindow x:Class="CRUD_Hospital.View.ChangeDoctorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+        xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+        xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+        xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
+        xmlns:d="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        mc:Ignorable="d"
+        Title="Изменение доктора" Height="305" Width="300" IconVisibility="Collapsed" ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewmodel:ChangeDoctorWindowVM/>
+    </Window.DataContext>
+    <Grid>
+        <StackPanel>
+            <GroupBox  Padding="5" Header="Новые данные пациента" Margin="10,10,10,0"  >
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10">Имя</TextBlock>
+                        <TextBox Text="{Binding Doctor.DFisrtname, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="220"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10">Отчество</TextBlock>
+                        <TextBox Text="{Binding Doctor.DSecondname,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="192"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10">Фамилия</TextBlock>
+                        <TextBox Text="{Binding Doctor.DLastname,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="194"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10">Телефон</TextBlock>
+                        <TextBox Text="{Binding Doctor.DPhone,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="198"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10">Должность</TextBlock>
+                        <TextBox Text="{Binding Doctor.DJobtitle,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="186"/>
+                    </StackPanel>
+                    <Button Margin="5" Height="30" Width="80" Content="Изменить" Background="{DynamicResource {x:Static adonisUi:Brushes.AccentHighlightBrush}}"
+                            Command="{Binding ChangeCommand}" CommandParameter="{Binding Patient}"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</adonisControls:AdonisWindow>
