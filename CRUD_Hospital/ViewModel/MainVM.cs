@@ -4,7 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using System.Windows;
 
 namespace CRUD_Hospital.ViewModel
 {
@@ -164,13 +164,19 @@ namespace CRUD_Hospital.ViewModel
         public RelayCommand AddPatientCommand => addPatientCommand ??
                     (addPatientCommand = new RelayCommand(obj =>
                    {
-                       Patient patient = obj as Patient;
-                       Data.AddToPatients(patient);
-                       clearAddPatient();
-                       UpdatePatients();
-                   },
-                    (obj) => addPatient.PPhone != null && addPatient.PFirstname != null && addPatient.PLastname != null && addPatient.PSecondname != null));
-
+                       if (addPatient.PPhone != null && addPatient.PFirstname != null && addPatient.PLastname != null && addPatient.PSecondname != null)
+                       {
+                           Patient patient = obj as Patient;
+                           Data.AddToPatients(patient);
+                           clearAddPatient();
+                           UpdatePatients();
+                       }
+                   }));
+        void ClearAdd()
+        {
+            addPatient = new Patient { HospitalId = Data.HospitalId };
+            AddDoctor = new Doctor();
+        }
         private RelayCommand removePatientCommand;
         public RelayCommand RemovePatientCommand => removePatientCommand ??
                     (removePatientCommand = new RelayCommand(obj =>
@@ -241,14 +247,17 @@ namespace CRUD_Hospital.ViewModel
         public RelayCommand AddDoctorCommand => addDoctorCommand ??
             (addDoctorCommand = new RelayCommand(obj =>
             {
-                Doctor doctor = obj as Doctor;
-                doctor.DepartmentId = Data.DepartmentId;
-                Data.AddToDoctors(doctor);
-                UpdateDoctors();
+                if (addDoctor.DFisrtname != null && addDoctor.DSecondname != null &&
+                addDoctor.DJobtitle != null && addDoctor.DLastname != null && addDoctor.DSecondname != null)
+                {
+                    Doctor doctor = obj as Doctor;
+                    doctor.DepartmentId = Data.DepartmentId;
+                    Data.AddToDoctors(doctor);
+                    UpdateDoctors();
+                    ClearAdd();
+                }
 
-            },
-                obj => addDoctor.DFisrtname != null && addDoctor.DSecondname != null &&
-                addDoctor.DJobtitle != null && addDoctor.DLastname != null && addDoctor.DSecondname != null));
+            }));
         
         private RelayCommand returnToHospitals;
         public RelayCommand ReturnToHospitals => returnToHospitals ??

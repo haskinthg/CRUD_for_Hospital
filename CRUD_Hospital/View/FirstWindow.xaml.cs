@@ -4,9 +4,6 @@ using System;
 
 namespace CRUD_Hospital.View
 {
-    /// <summary>
-    /// Логика взаимодействия для FirstWindow.xaml
-    /// </summary>
     public partial class FirstWindow : AdonisWindow
     {
         public FirstWindow()

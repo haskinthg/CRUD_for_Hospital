@@ -20,7 +20,7 @@
             <GroupBox Margin="20,20,20,0">
                 <GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="0,0,200,0">Выберите поликлинику</TextBlock>
+                        <TextBlock Margin="0,0,180,0">Выберите поликлинику</TextBlock>
                         <Button Height="30" Width="80" 
                         Background="{DynamicResource {x:Static adonisUi:Brushes.AccentHighlightBrush}}"
                                 Command="{Binding OpenAddHospitalCommand}">

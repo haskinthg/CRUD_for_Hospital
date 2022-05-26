@@ -3,9 +3,6 @@ using System;
 
 namespace CRUD_Hospital.View
 {
-    /// <summary>
-    /// Логика взаимодействия для ChangeDoctorWindow.xaml
-    /// </summary>
     public partial class ChangeDoctorWindow : AdonisWindow
     {
         public ChangeDoctorWindow()
