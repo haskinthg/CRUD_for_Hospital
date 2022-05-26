@@ -3,7 +3,6 @@ using CRUD_Hospital.Model;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
 namespace CRUD_Hospital.ViewModel
 {
     internal class AddDiseaseVM:INotifyPropertyChanged
@@ -27,6 +26,5 @@ namespace CRUD_Hospital.ViewModel
                 CloseAction();
             }));
         public Action CloseAction { get; set; }
-
     }
 }

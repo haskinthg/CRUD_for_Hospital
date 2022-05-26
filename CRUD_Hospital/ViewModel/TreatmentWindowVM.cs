@@ -17,7 +17,6 @@ namespace CRUD_Hospital.ViewModel
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
-
         private Service service;
         public Service Service
         {

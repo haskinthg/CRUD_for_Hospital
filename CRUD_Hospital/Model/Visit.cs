@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-
 namespace CRUD_Hospital
 {
     public partial class Visit

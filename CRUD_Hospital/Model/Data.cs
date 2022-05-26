@@ -2,7 +2,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-
 namespace CRUD_Hospital.Model
 {
     internal static class Data

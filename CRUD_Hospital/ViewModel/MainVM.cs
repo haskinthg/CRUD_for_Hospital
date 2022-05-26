@@ -205,7 +205,6 @@ namespace CRUD_Hospital.ViewModel
             },
                 obj => SelectedDepartment != null
             ));
-
         private RelayCommand addVisitWindowCommand;
         public RelayCommand AddVisitWndowCommand => addVisitWindowCommand ??
             (addVisitWindowCommand = new RelayCommand(obj =>

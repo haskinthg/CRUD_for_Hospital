@@ -4,7 +4,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
 namespace CRUD_Hospital.ViewModel
 {
     internal class HistoryVM: INotifyPropertyChanged

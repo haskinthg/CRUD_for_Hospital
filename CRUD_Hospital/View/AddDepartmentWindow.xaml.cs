@@ -1,6 +1,5 @@
 ﻿using AdonisUI.Controls;
 using System;
-
 namespace CRUD_Hospital.View
 {
     public partial class AddDepartmentWindow : AdonisWindow

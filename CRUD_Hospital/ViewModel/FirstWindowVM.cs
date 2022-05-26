@@ -71,7 +71,7 @@ namespace CRUD_Hospital.ViewModel
             }, 
                 obj => SelectedHospital != null));
 
-
         public Action CloseAction { get; set; }
     }
 }
+

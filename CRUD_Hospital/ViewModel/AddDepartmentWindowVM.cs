@@ -3,7 +3,6 @@ using CRUD_Hospital.Model;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
 namespace CRUD_Hospital.ViewModel
 {
     internal class AddDepartmentWindowVM : INotifyPropertyChanged

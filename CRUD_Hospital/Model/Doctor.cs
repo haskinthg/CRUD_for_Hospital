@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-
 namespace CRUD_Hospital
 {
     public partial class Doctor

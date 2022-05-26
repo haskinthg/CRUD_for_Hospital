@@ -69,3 +69,4 @@ namespace CRUD_Hospital.ViewModel
         public Action CloseAction { get; set; }
     }
 }
+

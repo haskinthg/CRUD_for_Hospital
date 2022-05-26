@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Input;
-
 namespace CRUD_Hospital.Command
 {
     internal class RelayCommand:ICommand

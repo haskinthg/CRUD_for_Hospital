@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.IO;
-
 namespace CRUD_Hospital
 {
     public partial class dbhospitalsContext : DbContext
