@@ -7,7 +7,7 @@
         xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
         xmlns:viewmodel="clr-namespace:CRUD_Hospital.ViewModel"
         xmlns:d="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        Title="Выбор больницы" Height="350" Width="450"  IconVisibility="Collapsed" ResizeMode="NoResize" >
+        Title="Выбор поликлиники" Height="350" Width="450"  IconVisibility="Collapsed" ResizeMode="NoResize" >
     <Window.DataContext>
         <viewmodel:FirstWindowVM/>
     </Window.DataContext>
@@ -20,7 +20,7 @@
             <GroupBox Margin="20,20,20,0">
                 <GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="0,0,200,0">Выберите больницу</TextBlock>
+                        <TextBlock Margin="0,0,200,0">Выберите поликлинику</TextBlock>
                         <Button Height="30" Width="80" 
                         Background="{DynamicResource {x:Static adonisUi:Brushes.AccentHighlightBrush}}"
                                 Command="{Binding OpenAddHospitalCommand}">
